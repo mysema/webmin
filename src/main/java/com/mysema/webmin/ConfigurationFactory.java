@@ -1,0 +1,43 @@
+package com.mysema.webmin;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.commons.digester.Digester;
+import org.xml.sax.SAXException;
+
+/**
+ * ConfigurationFactory provides
+ *
+ * @author Timo Westkamper
+ * @version $Id$
+ */
+public class ConfigurationFactory {
+    
+    /**
+     * @param is
+     * @return
+     * @throws IOException
+     * @throws SAXException
+     */
+    public static Configuration readFrom(InputStream is) throws IOException, SAXException{
+        Digester digester = new Digester();
+        digester.addObjectCreate("minifier", Configuration.class);        
+        
+        digester.addObjectCreate("minifier/bundle", Configuration.Bundle.class);        
+        digester.addSetProperties("minifier/bundle");
+        digester.addSetNext("minifier/bundle", "addBundle", Configuration.Bundle.class.getName());
+                  
+        digester.addCallMethod("minifier/bundle/max-age", "setMaxage", 1, 
+                new String[]{"java.lang.Long"});
+        digester.addCallParam("minifier/bundle/max-age", 0);
+        digester.addCallMethod("minifier/bundle/resources/resource", "addResource", 1);
+        digester.addCallParam("minifier/bundle/resources/resource",0);
+        
+        Configuration c = (Configuration)digester.parse(is);
+        c.initialize();
+        
+        return c;
+    }
+
+}
