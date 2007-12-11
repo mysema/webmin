@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2007 Mysema Ltd.
+ * All rights reserved.
+ * 
+ */
 package com.mysema.webmin;
 
 import java.io.ByteArrayOutputStream;
@@ -200,7 +205,10 @@ public class MinifierServlet extends HttpServlet {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             minifier.minify(bundle, encoding, request, response, out);                   
             byte[] content = out.toByteArray();
-        
+            if (content.length == 0){
+                logger.error("empty content for {}", path);
+            }
+            
             logger.debug("created content in {} ms", System.currentTimeMillis()-start);
                         
             // write to servletoutputstream            

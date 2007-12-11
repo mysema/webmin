@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2007 Mysema Ltd.
+ * All rights reserved.
+ * 
+ */
 package com.mysema.webmin;
 
 import java.io.ByteArrayOutputStream;

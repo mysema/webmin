@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2007 Mysema Ltd.
+ * All rights reserved.
+ * 
+ */
 package com.mysema.webmin.util;
 
 import java.io.IOException;
