@@ -6,9 +6,7 @@
    
   <servlet>
     <servlet-name>minifier</servlet-name>
-    <servlet-class>
-      com.mysema.webmin.MinifierServlet
-    </servlet-class>
+    <servlet-class>com.mysema.webmin.MinifierServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>minifier</servlet-name>

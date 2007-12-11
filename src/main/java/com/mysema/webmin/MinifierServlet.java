@@ -39,8 +39,14 @@ public class MinifierServlet extends HttpServlet {
      */
     private String configResourceLocation;   
     
+    /**
+     * 
+     */
     private Configuration configuration = null;
     
+    /**
+     * 
+     */
     private URL confResource;
     
     /**
@@ -48,6 +54,9 @@ public class MinifierServlet extends HttpServlet {
      */
     private String javascriptCompressor;
     
+    /**
+     * 
+     */
     private Minifier jsminMinifier = new JsminJsMinifier();
     
     /**
@@ -60,8 +69,14 @@ public class MinifierServlet extends HttpServlet {
      */
     private boolean useGzip;
     
+    /**
+     * 
+     */
     private Minifier yuiCssMinifier = new YuiCssMinifier();
     
+    /**
+     * 
+     */
     private Minifier yuiJsMinifier = new YuiJsMinifier();
     
     private String getParameter(String key, String defaultValue){
@@ -69,26 +84,24 @@ public class MinifierServlet extends HttpServlet {
         return value != null ? value : defaultValue;
     }
     
-    /**
-     * 
+    /* (non-Javadoc)
+     * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
      */
     public void init() throws ServletException {        
         try {
-            configResourceLocation = getParameter("configResourceLocation", 
-                    "/WEB-INF/minifier.xml");
+            configResourceLocation = getParameter("configResourceLocation", "/WEB-INF/minifier.xml");
             confResource = getServletContext().getResource(configResourceLocation);
-            reloadOnChange = Boolean.valueOf(getParameter("reloadOnChange", 
-                    "false"));
+            reloadOnChange = Boolean.valueOf(getParameter("reloadOnChange", "false"));
             useGzip = Boolean.valueOf(getParameter("useGzip","true"));
-            javascriptCompressor = getParameter("javascriptCompressor", 
-                    "jsmin");
+            javascriptCompressor = getParameter("javascriptCompressor", "jsmin");
+            
+            // load the congiuration
+            load();
             
             jsminMinifier.init(getServletContext(), configuration);
             yuiJsMinifier.init(getServletContext(), configuration);
             yuiCssMinifier.init(getServletContext(), configuration);
             
-            // load the congiuration
-            load();
         } catch (Exception e) {
             String error = "Caught " + e.getClass().getName();
             logger.error(error, e);
@@ -114,13 +127,11 @@ public class MinifierServlet extends HttpServlet {
          
      private void load(){              
         try {
-            logger.debug("loading");     
-            synchronized(configuration){
-                Configuration newConfig = ConfigurationFactory.readFrom(confResource.openStream());
-                newConfig.setLastModified(lastModified(confResource));
-                getServletContext().setAttribute(Configuration.class.getName(), newConfig);
-                configuration = newConfig;
-            }     
+            logger.debug("loading");                 
+            Configuration newConfig = ConfigurationFactory.readFrom(confResource.openStream());
+            newConfig.setLastModified(lastModified(confResource));
+            getServletContext().setAttribute(Configuration.class.getName(), newConfig);
+            configuration = newConfig;     
         } catch (Exception e) {
             String error = "Caught " + e.getClass().getName();
             logger.error(error, e);
@@ -128,14 +139,19 @@ public class MinifierServlet extends HttpServlet {
         }
     }
      
+     /* (non-Javadoc)
+      * @see javax.servlet.http.HttpServlet#service(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+      */
      protected void service(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String path = request.getRequestURI().substring(request.getContextPath().length()); 
         logger.debug("path = {}", path);
         
         // reload if reloadChange and configuration needs to be updated
-        if (reloadOnChange && lastModified(confResource) > configuration.getLastModified()){      
-            load();
+        if (reloadOnChange && lastModified(confResource) > configuration.getLastModified()){
+            synchronized(configuration){
+                load();    
+            }            
         }
         
         Configuration.Bundle bundle = configuration.getBundleByPath(path);        
@@ -190,6 +206,7 @@ public class MinifierServlet extends HttpServlet {
                 os = new GZIPOutputStream(os);
             }   
             os.write(content);
+            os.close();
         
         // not modified
         }else{

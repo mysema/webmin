@@ -1,5 +1,5 @@
 
-TEST : create httpunit tests for MinifierServlet
+DONE : create httpunit tests for MinifierServlet
 
 DONE : check for accept encoding
 
