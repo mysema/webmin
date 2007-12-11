@@ -112,7 +112,7 @@ public class Configuration {
     public void setLastModified(long lastModified) {
         this.lastModified = lastModified;
     }
-    
+     
     public static class Bundle {
         private final List<String> resources = new ArrayList<String>();
 
@@ -176,6 +176,7 @@ public class Configuration {
             this.maxage = maxage;
         }        
     }
+
 
 
     
