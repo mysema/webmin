@@ -1,4 +1,4 @@
-package com.mysema.webmin;
+package com.mysema.webmin.util;
 
 import java.io.IOException;
 import java.util.Locale;

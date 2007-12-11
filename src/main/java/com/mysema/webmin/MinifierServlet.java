@@ -55,11 +55,6 @@ public class MinifierServlet extends HttpServlet {
     private String javascriptCompressor;
     
     /**
-     * 
-     */
-    private Minifier jsminMinifier = new JsminJsMinifier();
-    
-    /**
      * true, if reloaded on configuration file change, and false if not
      */
     private boolean reloadOnChange;
@@ -69,15 +64,12 @@ public class MinifierServlet extends HttpServlet {
      */
     private boolean useGzip;
     
-    /**
-     * 
-     */
-    private Minifier yuiCssMinifier = new YuiCssMinifier();
+    private Minifier[] minifiers = new Minifier[]{
+            new JsminJsMinifier(), 
+            new YuiJsMinifier(), 
+            new YuiCssMinifier()
+    };
     
-    /**
-     * 
-     */
-    private Minifier yuiJsMinifier = new YuiJsMinifier();
     
     private String getParameter(String key, String defaultValue){
         String value = getServletConfig().getInitParameter(key);
@@ -98,9 +90,9 @@ public class MinifierServlet extends HttpServlet {
             // load the congiuration
             load();
             
-            jsminMinifier.init(getServletContext(), configuration);
-            yuiJsMinifier.init(getServletContext(), configuration);
-            yuiCssMinifier.init(getServletContext(), configuration);
+            for (Minifier minifier : minifiers){
+                minifier.init(getServletContext(), configuration);
+            }
             
         } catch (Exception e) {
             String error = "Caught " + e.getClass().getName();
@@ -109,6 +101,13 @@ public class MinifierServlet extends HttpServlet {
         }
     }
     
+    /**
+     * Returns the last modified timestamp of the given Bundle
+     * 
+     * @param bundle
+     * @return
+     * @throws MalformedURLException
+     */
     private long lastModified(Bundle bundle) throws MalformedURLException {
          long lastModified = 0l;
          for (String path : bundle.getResources()){
@@ -121,6 +120,12 @@ public class MinifierServlet extends HttpServlet {
          return lastModified / 1000 * 1000;
      }
 
+    /**
+     * Returns the last modified timestamp of the given URL
+     * 
+     * @param resource
+     * @return
+     */
     private long lastModified(URL resource){
          return new File(resource.getFile()).lastModified();
      }   
@@ -166,6 +171,14 @@ public class MinifierServlet extends HttpServlet {
         // TODO : different encodings for different types ?
         String encoding = configuration.getTargetEncoding();                
         long lastModified = lastModified(bundle);
+        
+        // set Expires header
+        response.setDateHeader("Last-Modified", lastModified);                
+        if (bundle.getMaxage() != 0l){
+            logger.debug("setting expires header");
+            response.setDateHeader("Expires", lastModified + bundle.getMaxage() * 1000);
+        }
+        response.setCharacterEncoding(encoding);
        
         // check if-modified-since header
         long ifModifiedSince = request.getDateHeader("If-Modified-Since");
@@ -177,27 +190,19 @@ public class MinifierServlet extends HttpServlet {
             Minifier minifier = null;
             if (bundle.getType().equals("javascript")){          
                 if ("jsmin".equals(javascriptCompressor)){
-                    minifier = jsminMinifier;    
+                    minifier = minifiers[0];    
                 }else if ("yuic".equals(javascriptCompressor)){
-                    minifier = yuiJsMinifier;
+                    minifier = minifiers[1];
                 }
             } else {                
-                minifier = yuiCssMinifier;
+                minifier = minifiers[2];
             }    
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             minifier.minify(bundle, encoding, request, response, out);                   
             byte[] content = out.toByteArray();
         
             logger.debug("created content in {} ms", System.currentTimeMillis()-start);
-            
-            // set Expires header
-            response.setDateHeader("Last-Modified", lastModified);                
-            if (bundle.getMaxage() != 0l){
-                logger.debug("setting expires header");
-                response.setDateHeader("Expires", lastModified + bundle.getMaxage() * 1000);
-            }
-            response.setCharacterEncoding(encoding);
-            
+                        
             // write to servletoutputstream            
             OutputStream os = response.getOutputStream();
             String acceptEncoding = request.getHeader("Accept-Encoding");

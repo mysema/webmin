@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Configuration provides
+ * Configuration of webmin
  * 
  * @author Timo Westkamper
  * @version $Id$

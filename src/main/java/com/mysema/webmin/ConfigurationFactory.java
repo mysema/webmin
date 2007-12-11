@@ -7,7 +7,7 @@ import org.apache.commons.digester.Digester;
 import org.xml.sax.SAXException;
 
 /**
- * ConfigurationFactory provides
+ * ConfigurationFactory is a Factory class for Configuration instances
  *
  * @author Timo Westkamper
  * @version $Id$
