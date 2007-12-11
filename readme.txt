@@ -1,7 +1,10 @@
-TODO : make this configuration file location configurable
 
-TODO : check for accept encoding
+TEST : create httpunit tests for MinifierServlet
 
-TODO : make gzip usage configurable
+DONE : check for accept encoding
 
-TODO : make YUI / JSMin switch configurable
+DONE : make YUI / JSMin switch configurable
+
+DONE : make gzip usage configurable
+
+DONE : make this configuration file location configurable 
