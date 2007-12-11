@@ -1,0 +1,63 @@
+body {font-family : arial,helvetica,clean,sans-serif;background-color: #fff;}
+html, body, form { margin: 0; padding: 0; }
+ul, ol, li, h1, h2, h3, h4, h5, p { margin: 0 0 0.5em 0; padding: 0; }
+td { vertical-align: top; }
+li { margin-left: 2em; }
+a img { border: 0; }
+a:link { text-decoration: none; color: #00f; }
+a:visited { text-decoration: none; color: #639; }
+a:hover { text-decoration: underline; }
+a:active { text-decoration: underline; }
+
+h1 { font-size: 150%; } 
+h2 { font-size: 120%; } 
+h3 { font-size: 110%; }
+h4 { font-size: 100%; }
+h5 { font-size: 100%; }
+
+/* header & footer */
+
+#header, #footer, #main { margin: 1em; }
+#header, #footer { font-size: 90%; }
+#footer { border-top: solid 1px #D0D0D0; padding: 0.3em; clear:both;}
+
+#header li, #footer li { display: inline; border-left: 1px solid #444; padding: 0 0.4em; margin: 0; }
+#header li.first, #footer li.first { border-left: 0; padding-left: 0; }
+
+/* breadcrumbs */
+
+#breadcrumbs {background-color: #003366; font-size: 90%; padding: 5px 7px; }
+#breadcrumbs a {color: white; text-decoration: underline; }
+#breadcrumbs span {color:white}
+
+/* central elements */
+
+.subtitle { border-bottom: solid 1px #D0D0D0; padding: 0.3em;}
+.tabletitle { font-size: 110%; color: blue; }
+.bookmark { padding-bottom: 1em; }
+.bookmark .description { font-size: 90%; } 
+.bm { font-weight: bold; }
+.settings {float:left;}
+ 
+/* floating righthand side boxes */
+
+.tagcloud, .taglist {line-height: 1.5; padding-bottom: 0.5em;}
+.rightbox {float:right; width:220px; padding: 0.5em; }
+.sortTags {text-align:right; font-size:80%;}
+
+/* dynamic elements */
+
+.edit {padding-bottom: 0.5em;}
+.edit input { width: 533px; }
+.edit label {display:block; width: 100px; float:left;}
+.edit label, .actions, .confirm{ font-size: 90%;}
+.meta { display: none; }
+.info {font-size: 90%; width:50em;}
+
+.sub {padding-top: 1em;}
+.sub div {padding:0.05em;}
+.sub label {display:block; width: 160px; float:left;}
+
+.red {color: red;}
+.hand {color: blue;}
+.hand:hover { cursor: pointer; }
