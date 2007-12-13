@@ -22,18 +22,17 @@ public class Configuration {
     private final Map<String, Bundle> bundlesByPath = new HashMap<String, Bundle>();
     private final Map<String, Bundle> bundlesByName = new HashMap<String, Bundle>();
     
+    // YUI JS minifier configuration
     private int lineBreakPos = -1;   //Insert a line break after the specified column number    
     private boolean warn = true; //Display possible errors in the code    
     private boolean munge = false; //Minify only, do not obfuscate    
     private boolean preserveAllSemiColons = true; //Preserve unnecessary semicolons    
     private boolean preserveStringLiterals = true;
     
-    private long lastModified;
-    
-    private String targetEncoding = "UTF-8";
-    
-    private boolean useGzip;
-    
+    // general configuration
+    private long lastModified;    
+    private String targetEncoding = "UTF-8";    
+    private boolean useGzip;    
     private String javascriptCompressor;
     
     public void initialize(){

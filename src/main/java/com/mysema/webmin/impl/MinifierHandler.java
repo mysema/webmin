@@ -33,6 +33,7 @@ import com.mysema.webmin.Configuration.Bundle;
 import com.mysema.webmin.support.JsminJsMinifier;
 import com.mysema.webmin.support.Minifier;
 import com.mysema.webmin.support.YuiCssMinifier;
+import com.mysema.webmin.support.YuiJsMinifier;
 import com.mysema.webmin.util.ResourceUtil;
 
 /**
@@ -54,7 +55,11 @@ public class MinifierHandler implements Handler{
     public MinifierHandler(Configuration configuration, ServletContext servletContext){
         this.servletContext = servletContext;
         this.configuration = configuration;     
-        minifiers.put("javascript", new JsminJsMinifier());
+        if (configuration.getJavascriptCompressor().equals("jsmin")){
+            minifiers.put("javascript", new JsminJsMinifier());    
+        }else{
+            minifiers.put("javascript", new YuiJsMinifier());
+        }        
         minifiers.put("css", new YuiCssMinifier());
     }
 
