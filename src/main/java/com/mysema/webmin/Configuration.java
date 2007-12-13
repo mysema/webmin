@@ -32,6 +32,10 @@ public class Configuration {
     
     private String targetEncoding = "UTF-8";
     
+    private boolean useGzip;
+    
+    private String javascriptCompressor;
+    
     public void initialize(){
         for (Bundle b : bundles){
             b.initialize(this);
@@ -117,6 +121,23 @@ public class Configuration {
     public void setLastModified(long lastModified) {
         this.lastModified = lastModified;
     }
+    
+    public void setUseGzip(boolean useGzip) {
+        this.useGzip = useGzip;        
+    }
+    
+    public boolean isUseGzip() {
+        return useGzip;
+    }
+
+    public String getJavascriptCompressor() {
+        return javascriptCompressor;
+    }
+
+    public void setJavascriptCompressor(String javascriptCompressor) {
+        this.javascriptCompressor = javascriptCompressor;        
+    }
+    
      
     public static class Bundle {
         private final List<String> resources = new ArrayList<String>();
@@ -184,5 +205,5 @@ public class Configuration {
 
 
 
-    
+        
 }

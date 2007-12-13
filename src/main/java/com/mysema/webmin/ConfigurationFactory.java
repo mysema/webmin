@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
  * @author Timo Westkamper
  * @version $Id$
  */
-public class ConfigurationFactory {
+class ConfigurationFactory {
     
     /**
      * @param is

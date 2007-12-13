@@ -3,7 +3,7 @@
  * All rights reserved.
  * 
  */
-package com.mysema.webmin;
+package com.mysema.webmin.impl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,7 +24,7 @@ import com.mysema.webmin.util.SafeResponseWrapper;
  * @version $Id$
  *
  */
-public class MinifierResponseWrapper extends SafeResponseWrapper {
+class MinifierResponseWrapper extends SafeResponseWrapper {
     
     private static final Logger logger = LoggerFactory.getLogger(MinifierResponseWrapper.class);
     

@@ -3,7 +3,7 @@
  * All rights reserved.
  * 
  */
-package com.mysema.webmin;
+package com.mysema.webmin.support;
 
 import org.mozilla.javascript.ErrorReporter;
 import org.mozilla.javascript.EvaluatorException;
@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * @author Timo Westkamper
  * @version $Id$
  */
-public class MinifierErrorReporter implements ErrorReporter {
+class MinifierErrorReporter implements ErrorReporter {
     private static final Logger logger = LoggerFactory.getLogger(MinifierErrorReporter.class);
 
     public void warning(String message, String sourceName,

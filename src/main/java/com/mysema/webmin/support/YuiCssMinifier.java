@@ -5,7 +5,6 @@
  */
 package com.mysema.webmin.support;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -14,6 +13,7 @@ import java.io.OutputStreamWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysema.webmin.Configuration;
 import com.yahoo.platform.yui.compressor.CssCompressor;
 
 /**
@@ -22,19 +22,18 @@ import com.yahoo.platform.yui.compressor.CssCompressor;
  * @author Timo Westkamper
  * @version $Id$
  */
-public class YuiCssMinifier extends Minifier {
+public class YuiCssMinifier implements Minifier {
 
-    @Override
-    protected void minify(InputStream in, String encoding,
+    public void minify(InputStream in, Configuration configuration,
             HttpServletRequest request, HttpServletResponse response,
-            OutputStream out) throws IOException {
+            OutputStream out) throws Exception {
         
         InputStreamReader reader = new InputStreamReader(in, "ISO-8859-1");        
         CssCompressor compressor = new CssCompressor(reader);
         reader.close();
 
         OutputStreamWriter ow = new OutputStreamWriter(out);
-        compressor.compress(ow, getConfiguration().getLineBreakPos());
+        compressor.compress(ow, configuration.getLineBreakPos());
         ow.flush();
     }
 

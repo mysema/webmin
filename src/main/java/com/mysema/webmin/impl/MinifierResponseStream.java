@@ -3,7 +3,7 @@
  * All rights reserved.
  * 
  */
-package com.mysema.webmin;
+package com.mysema.webmin.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id$
  *
  */
-public class MinifierResponseStream extends ServletOutputStream {
+class MinifierResponseStream extends ServletOutputStream {
     
     private static final Logger logger = LoggerFactory
             .getLogger(MinifierResponseStream.class);

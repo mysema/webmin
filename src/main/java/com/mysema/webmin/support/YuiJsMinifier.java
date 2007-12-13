@@ -5,7 +5,6 @@
  */
 package com.mysema.webmin.support;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.mozilla.javascript.ErrorReporter;
 
 import com.mysema.webmin.Configuration;
-import com.mysema.webmin.MinifierErrorReporter;
 import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 
 /**
@@ -27,17 +25,15 @@ import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
  * @author Timo Westkamper
  * @version $Id$
  */
-public class YuiJsMinifier extends Minifier {
+public class YuiJsMinifier implements Minifier {
 
     private static final ErrorReporter errorReporter = new MinifierErrorReporter();
 
-    @Override
-    protected void minify(InputStream in, String encoding,
+    public void minify(InputStream in, Configuration configuration,
             HttpServletRequest request, HttpServletResponse response,
-            OutputStream out) throws IOException {
+            OutputStream out) throws Exception {
         
-        Configuration configuration = getConfiguration();
-        OutputStreamWriter ow = new OutputStreamWriter(out, encoding);
+        OutputStreamWriter ow = new OutputStreamWriter(out, configuration.getTargetEncoding());
 
         Reader reader = new InputStreamReader(in,"ISO-8859-1");
         JavaScriptCompressor compressor = new JavaScriptCompressor(reader,errorReporter);
@@ -46,8 +42,8 @@ public class YuiJsMinifier extends Minifier {
         // write the compressed content to out
         compressor.compress(ow, configuration.getLineBreakPos(),
                 configuration.isMunge(), configuration.isWarn(),
-                configuration.isPreserveAllSemiColons(), configuration
-                        .isPreserveStringLiterals());
+                configuration.isPreserveAllSemiColons(), 
+                configuration.isPreserveStringLiterals());
 
     }
 

@@ -5,13 +5,13 @@
  */
 package com.mysema.webmin.support;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysema.webmin.Configuration;
 import com.mysema.webmin.jsmin.JSMin;
 
 /**
@@ -20,22 +20,12 @@ import com.mysema.webmin.jsmin.JSMin;
  * @author Timo Westkamper
  * @version $Id$
  */
-public class JsminJsMinifier extends Minifier {
-
-    @Override
-    protected void minify(InputStream in, String encoding,
+public class JsminJsMinifier implements Minifier {
+    
+    public void minify(InputStream in, Configuration configuration,
             HttpServletRequest request, HttpServletResponse response,
-            OutputStream out) throws IOException {
-
-        JSMin jsmin = new JSMin(in, out);
-        try {
-            jsmin.jsmin();
-        } catch (Exception e) {
-            String error = "Caught " + e.getClass().getName();
-            logger.error(error, e);
-            throw new RuntimeException(error, e);
-        }
-
+            OutputStream out) throws Exception {
+        new JSMin(in, out).jsmin();
     }
 
 }
