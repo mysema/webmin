@@ -5,11 +5,9 @@
  */
 package com.mysema.webmin.support;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.mysema.webmin.Configuration;
 import com.mysema.webmin.jsmin.JSMin;
@@ -22,10 +20,10 @@ import com.mysema.webmin.jsmin.JSMin;
  */
 public class JsminJsMinifier implements Minifier {
     
-    public void minify(InputStream in, Configuration configuration,
-            HttpServletRequest request, HttpServletResponse response,
-            OutputStream out) throws Exception {
+    public void minify(InputStream in, OutputStream out,
+            Configuration configuration) throws IOException {
         new JSMin(in, out).jsmin();
+        out.flush();
     }
 
 }

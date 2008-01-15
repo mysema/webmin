@@ -274,33 +274,13 @@ public class JSMin {
 		out.flush();
 	}
 
-	class UnterminatedCommentException extends Exception {
+	class UnterminatedCommentException extends RuntimeException {
 	}
 
-	class UnterminatedStringLiteralException extends Exception {
+	class UnterminatedStringLiteralException extends RuntimeException {
 	}
 
-	class UnterminatedRegExpLiteralException extends Exception {
+	class UnterminatedRegExpLiteralException extends RuntimeException {
 	}
-
-//	public static void main(String arg[]) {
-//		try {
-//			JSMin jsmin = new JSMin(new FileInputStream(arg[0]), System.out);
-//			jsmin.jsmin();
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (ArrayIndexOutOfBoundsException e) {
-//			e.printStackTrace();			
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} catch (UnterminatedRegExpLiteralException e) {
-//			e.printStackTrace();
-//		} catch (UnterminatedCommentException e) {
-//			e.printStackTrace();
-//		} catch (UnterminatedStringLiteralException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
 
 }

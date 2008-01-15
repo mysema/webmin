@@ -9,9 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.mysema.webmin.Configuration;
 
 /**
@@ -25,13 +22,10 @@ public interface Minifier {
     /**
      * 
      * @param input
-     * @param configuration
-     * @param request
-     * @param response
      * @param output
+     * @param configuration
      * @throws IOException
      */
-    public void minify(InputStream input, Configuration configuration,
-            HttpServletRequest request, HttpServletResponse response,
-            OutputStream output) throws Exception;
+    public void minify(InputStream input, OutputStream output,
+            Configuration configuration) throws IOException;
 }
