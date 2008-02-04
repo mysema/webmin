@@ -110,7 +110,7 @@ public class MinifierHandler implements Handler {
             // expires header
             if (bundle.getMaxage() != 0l) {
                 logger.debug("setting expires header");
-                response.setDateHeader("Expires", lastModified+ bundle.getMaxage() * 1000);
+                response.setDateHeader("Expires", System.currentTimeMillis()+ bundle.getMaxage() * 1000);
             }
 
             // check if-modified-since header
