@@ -5,6 +5,7 @@
  */
 package com.mysema.webmin;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -34,6 +35,16 @@ public class MinifierServletTest extends WebTestCase {
         assertNotNull(res.getHeaderField("Content-Encoding"));
         assertNotNull(res.getHeaderField("Expires"));
         assertNotNull(res.getHeaderField("Last-Modified"));        
+    }
+    
+    @Test
+    public void test_bug289() throws Exception{
+        goTo("/res/bookmarks.min.css");
+        String exp1 = res.getHeaderField("Expires");
+        Thread.sleep(1000);
+        goTo("/res/bookmarks.min.css");
+        String exp2 = res.getHeaderField("Expires");
+        assertFalse("Expected different Expires for second request", exp1.equals(exp2));
     }
     
     @Test
