@@ -68,7 +68,6 @@
       <groupId>com.mysema.commons</groupId>
       <artifactId>mysema-core</artifactId>
       <version>0.3.1</version>
-      <scope>test</scope>
     </dependency>	
 
     <!-- spring -->
