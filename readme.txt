@@ -1,5 +1,4 @@
-
-
+TODO : add support for mode without compression
 
 TODO : make sure the MinifierHandler can also handle it's own outputs as input
 
