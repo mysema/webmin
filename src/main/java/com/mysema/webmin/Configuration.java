@@ -137,9 +137,28 @@ public class Configuration {
         this.javascriptCompressor = javascriptCompressor;        
     }
     
+    public static class Resource{
+        private final String path;
+        private final boolean forward;
+
+        public Resource(String path, boolean forward) {
+            this.path = path;
+            this.forward = forward;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public boolean isForward() {
+            return forward;
+        }
+
+        
+    }
      
     public static class Bundle {
-        private final List<String> resources = new ArrayList<String>();
+        private final List<Resource> resources = new ArrayList<Resource>();
 
         private long maxage;
         
@@ -151,13 +170,13 @@ public class Configuration {
         
         private String path;
 
-        public void addResource(String resource) {
+        public void addResource(String resource, boolean forward) {
             if (resource == null) throw new IllegalArgumentException("resource was null");
-            resources.add(resource);
+            resources.add(new Resource(resource, forward));
         }
         void initialize(Configuration c) {
             if (_extends == null) return;
-            List<String> res = new ArrayList<String>();
+            List<Resource> res = new ArrayList<Resource>();
             for (String name : _extends){
                 Bundle parent = c.getBundleByName(name);
                 parent.initialize(c);
@@ -166,7 +185,7 @@ public class Configuration {
             resources.addAll(0,res);
             _extends = null;
         }
-        public List<String> getResources() {
+        public List<Resource> getResources() {
             return resources;
         }   
         public String getPath(){

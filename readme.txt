@@ -3,6 +3,8 @@ TODO : add support for mode without compression
 TODO : make sure the MinifierHandler can also handle it's own outputs as input
 
 
+DONE : add forward(false|true) to resource element
+
 DONE : create httpunit tests for MinifierServlet
 
 DONE : check for accept encoding

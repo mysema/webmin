@@ -36,8 +36,10 @@ class ConfigurationFactory {
         digester.addCallMethod("minifier/bundle/max-age", "setMaxage", 1, 
                 new String[]{"java.lang.Long"});
         digester.addCallParam("minifier/bundle/max-age", 0);
-        digester.addCallMethod("minifier/bundle/resources/resource", "addResource", 1);
+        digester.addCallMethod("minifier/bundle/resources/resource", "addResource", 
+                2, new Class[]{String.class, Boolean.class});
         digester.addCallParam("minifier/bundle/resources/resource",0);
+        digester.addCallParam("minifier/bundle/resources/resource", 1, "forward");
         
         Configuration c = (Configuration)digester.parse(is);
         c.initialize();

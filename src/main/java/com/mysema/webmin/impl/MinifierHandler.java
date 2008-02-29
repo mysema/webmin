@@ -75,18 +75,17 @@ public class MinifierHandler implements Handler {
      * @throws IOException
      * @throws ServletException
      */
-    private InputStream getStreamForResource(String path,
+    private InputStream getStreamForResource(Configuration.Resource resource,
             HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
-        InputStream is = servletContext.getResourceAsStream(path);
-        // use RequestDispatcher if path is unavailable as resource
-        if (is == null) {
-            RequestDispatcher dispatcher = servletContext.getRequestDispatcher(path);
+        if (resource.isForward()){
+            RequestDispatcher dispatcher = servletContext.getRequestDispatcher(resource.getPath());
             MinifierResponseWrapper mres = new MinifierResponseWrapper(res);
             dispatcher.forward(req, mres);
-            is = new ByteArrayInputStream(mres.getBytes());
+            return new ByteArrayInputStream(mres.getBytes());            
+        }else{
+            return servletContext.getResourceAsStream(resource.getPath());
         }
-        return is;
     }
 
     public void handle(HttpServletRequest request, HttpServletResponse response)
@@ -150,10 +149,10 @@ public class MinifierHandler implements Handler {
      */
     private long lastModified(Bundle bundle) throws MalformedURLException {
         long lastModified = 0l;
-        for (String path : bundle.getResources()) {
-            URL resource = servletContext.getResource(path);
-            if (resource != null) {
-                lastModified = Math.max(lastModified, ResourceUtil.lastModified(resource));
+        for (Configuration.Resource resource : bundle.getResources()) {
+            if (!resource.isForward()){
+                URL url = servletContext.getResource(resource.getPath());
+                lastModified = Math.max(lastModified, ResourceUtil.lastModified(url));
             }
         }
         // round down to the nearest second since client headers are in seconds
@@ -175,8 +174,8 @@ public class MinifierHandler implements Handler {
 
         // unite contents
         List<InputStream> streams = new LinkedList<InputStream>();
-        for (String resource : bundle.getResources()) {
-            streams.add(getStreamForResource(resource, request, response));
+        for (Configuration.Resource res : bundle.getResources()) {
+            streams.add(getStreamForResource(res, request, response));
         }
         InputStream in = new CompositeInputStream(streams);
 

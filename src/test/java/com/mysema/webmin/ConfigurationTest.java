@@ -14,6 +14,8 @@ import java.util.List;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import com.mysema.webmin.Configuration.Resource;
+
 /**
  * ConfigurationTest provides
  * 
@@ -27,14 +29,14 @@ public class ConfigurationTest {
         Configuration c = ConfigurationFactory.readFrom(this.getClass()
                 .getResourceAsStream("/minifier.xml"));
         assertEquals("javascript",c.getBundleByPath("/res/deletetag.min.js").getType());
-        List<String> resources = c.getBundleByPath("/res/deletetag.min.js").getResources();
+        List<Resource> resources = c.getBundleByPath("/res/deletetag.min.js").getResources();
         
         assertEquals(4,resources.size());
-        Iterator<String> it = resources.iterator();
-        assertEquals("/dwr/interface/ServiceFacade.js", it.next());
-        assertEquals("/dwr/engine.js", it.next());
-        assertEquals("/WEB-INF/scripts/jquery/jquery-1.2.1.js", it.next());
-        assertEquals("/WEB-INF/scripts/deletetag.js", it.next());
+        Iterator<Resource> it = resources.iterator();
+        assertEquals("/dwr/interface/ServiceFacade.js", it.next().getPath());
+        assertEquals("/dwr/engine.js", it.next().getPath());
+        assertEquals("/WEB-INF/scripts/jquery/jquery-1.2.1.js", it.next().getPath());
+        assertEquals("/WEB-INF/scripts/deletetag.js", it.next().getPath());
     }
 
 }

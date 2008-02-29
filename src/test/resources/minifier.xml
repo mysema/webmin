@@ -50,8 +50,8 @@
 
   <bundle name="dwr">
       <resources>
-         <resource>/dwr/interface/ServiceFacade.js</resource>
-         <resource>/dwr/engine.js</resource>
+         <resource forward="true">/dwr/interface/ServiceFacade.js</resource>
+         <resource forward="true">/dwr/engine.js</resource>
       </resources>           
   </bundle>
   
