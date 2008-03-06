@@ -274,13 +274,28 @@ public class JSMin {
 		out.flush();
 	}
 
-	class UnterminatedCommentException extends RuntimeException {
+	static class UnterminatedCommentException extends RuntimeException {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -2324309609588662926L;
 	}
 
-	class UnterminatedStringLiteralException extends RuntimeException {
+	static class UnterminatedStringLiteralException extends RuntimeException {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -5403443039095915308L;
 	}
 
-	class UnterminatedRegExpLiteralException extends RuntimeException {
+	static class UnterminatedRegExpLiteralException extends RuntimeException {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1064873934515803930L;
 	}
 
 }

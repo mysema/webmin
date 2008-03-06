@@ -33,7 +33,7 @@ public class MinifierServlet extends HttpServlet {
     
     private URL confResource = null;
     
-    private Handler handler = null;
+    private transient Handler handler = null;
     
     /**
      * get the servlet config parameter with the given key or return defaultValue
