@@ -5,6 +5,7 @@
  */
 package com.mysema.webmin;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
@@ -37,6 +38,12 @@ public class ConfigurationTest {
         assertEquals("/dwr/engine.js", it.next().getPath());
         assertEquals("/WEB-INF/scripts/jquery/jquery-1.2.1.js", it.next().getPath());
         assertEquals("/WEB-INF/scripts/deletetag.js", it.next().getPath());
+        
+        Configuration.Bundle bundle = c.getBundleByName("dwr");
+        assertTrue(bundle.getResources().get(0).isForward());
+        
+        bundle = c.getBundleByName("jquery");
+        assertFalse(bundle.getResources().get(0).isForward());
     }
 
 }
