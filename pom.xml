@@ -12,7 +12,7 @@
 
   <groupId>com.mysema.web</groupId>
   <artifactId>webmin</artifactId>
-  <version>0.1.5</version>
+  <version>0.1.6</version>
   <packaging>jar</packaging>
   <name>Web resource minifier</name>
 
@@ -68,7 +68,7 @@
       <groupId>com.mysema.commons</groupId>
       <artifactId>mysema-core</artifactId>
       <version>0.3.2</version>
-    </dependency>	
+    </dependency>
 
     <!-- spring -->
 
@@ -82,15 +82,9 @@
     <!-- testing -->
 
     <dependency>
-      <groupId>com.mysema.commons</groupId>
-      <artifactId>mysema-test</artifactId>
-      <version>0.3.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>httpunit</groupId>
-      <artifactId>httpunit</artifactId>
-      <version>1.6.2-patched-20061221</version>
+      <groupId>com.mysema.util</groupId>
+      <artifactId>httpunit-util</artifactId>
+      <version>0.1.0</version>
       <scope>test</scope>
     </dependency>
 

@@ -18,7 +18,7 @@ import org.xml.sax.SAXException;
 
 import com.meterware.servletunit.ServletRunner;
 import com.meterware.servletunit.ServletUnitClient;
-import com.mysema.test.httpunit.WebTestCase;
+import com.mysema.util.httpunit.WebTestCase;
 
 /**
  * MinifierServletTest provides
