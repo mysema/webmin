@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mysema.core.io.CompositeInputStream;
 import com.mysema.webmin.Configuration;
 import com.mysema.webmin.Handler;
 import com.mysema.webmin.MinifierServlet;
@@ -36,6 +35,7 @@ import com.mysema.webmin.support.JsminJsMinifier;
 import com.mysema.webmin.support.Minifier;
 import com.mysema.webmin.support.YuiCssMinifier;
 import com.mysema.webmin.support.YuiJsMinifier;
+import com.mysema.webmin.util.CompositeInputStream;
 import com.mysema.webmin.util.ResourceUtil;
 
 /**
