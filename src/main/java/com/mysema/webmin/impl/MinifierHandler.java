@@ -91,6 +91,11 @@ public class MinifierHandler implements Handler {
     public void handle(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String path = request.getRequestURI().substring(request.getContextPath().length());
+        int i = path.indexOf(';');
+        if (i > -1){
+            // strip jsessionid parameters etc off
+            path = path.substring(0, i);
+        }
         logger.debug("path = {}", path);
 
         Configuration.Bundle bundle = configuration.getBundleByPath(path);
