@@ -5,11 +5,7 @@
  */
 package com.mysema.webmin;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Configuration of webmin
@@ -176,12 +172,12 @@ public class Configuration {
         }
         void initialize(Configuration c) {
             if (_extends == null) return;
-            List<Resource> res = new ArrayList<Resource>();
+            Set<Resource> res = new LinkedHashSet<Resource>();
             for (String name : _extends){
                 Bundle parent = c.getBundleByName(name);
                 parent.initialize(c);
                 res.addAll(parent.getResources());
-            }
+            }           
             resources.addAll(0,res);
             _extends = null;
         }
