@@ -44,5 +44,11 @@ public class ConfigurationTest {
         bundle = c.getBundleByName("jquery");
         assertFalse(bundle.getResources().get(0).isForward());
     }
+    
+    @Test
+    public void testImports(){
+        
+    }
+    
 
 }

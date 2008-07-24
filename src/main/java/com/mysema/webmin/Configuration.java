@@ -149,6 +149,10 @@ public class Configuration {
         public boolean isForward() {
             return forward;
         }
+        
+        public boolean equals(Object o){
+            return o instanceof Resource && ((Resource)o).path.equals(path);
+        }
 
         
     }
