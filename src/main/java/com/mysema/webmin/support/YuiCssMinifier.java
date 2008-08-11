@@ -13,6 +13,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import com.mysema.webmin.Configuration;
+import com.mysema.webmin.Configuration.Bundle;
 import com.yahoo.platform.yui.compressor.CssCompressor;
 
 /**
@@ -23,7 +24,7 @@ import com.yahoo.platform.yui.compressor.CssCompressor;
  */
 public class YuiCssMinifier implements Minifier {
 
-    public void minify(InputStream in, OutputStream out,
+    public void minify(InputStream in, OutputStream out, Bundle bundle,
             Configuration configuration) throws IOException {        
         InputStreamReader reader = new InputStreamReader(in, "ISO-8859-1");        
         CssCompressor compressor = new CssCompressor(reader);

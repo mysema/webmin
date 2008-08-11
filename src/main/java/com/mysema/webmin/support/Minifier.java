@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.mysema.webmin.Configuration;
+import com.mysema.webmin.Configuration.Bundle;
 
 /**
  * Minifier provides
@@ -22,10 +23,11 @@ public interface Minifier {
     /**
      * 
      * @param input
-     * @param output
+     * @param output 
+     * @param bundle
      * @param configuration
      * @throws IOException
      */
-    public void minify(InputStream input, OutputStream output,
+    public void minify(InputStream input, OutputStream output, Bundle bundle,
             Configuration configuration) throws IOException;
 }

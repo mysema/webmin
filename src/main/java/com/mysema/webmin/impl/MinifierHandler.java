@@ -31,10 +31,7 @@ import com.mysema.webmin.Configuration;
 import com.mysema.webmin.Handler;
 import com.mysema.webmin.MinifierServlet;
 import com.mysema.webmin.Configuration.Bundle;
-import com.mysema.webmin.support.JsminJsMinifier;
-import com.mysema.webmin.support.Minifier;
-import com.mysema.webmin.support.YuiCssMinifier;
-import com.mysema.webmin.support.YuiJsMinifier;
+import com.mysema.webmin.support.*;
 import com.mysema.webmin.util.CompositeInputStream;
 import com.mysema.webmin.util.ResourceUtil;
 
@@ -48,10 +45,14 @@ public class MinifierHandler implements Handler {
 
     private static final Logger logger = LoggerFactory.getLogger(MinifierServlet.class);
 
+    private static final Minifier nullMinifier = new NullMinifier();
+    
     private final Configuration configuration;
 
     private final Map<String, Minifier> minifiers = new HashMap<String, Minifier>();
 
+    private final Map<String, Minifier> debugMinifiers = new HashMap<String,Minifier>();
+    
     private final ServletContext servletContext;
 
     public MinifierHandler(Configuration configuration,
@@ -63,7 +64,20 @@ public class MinifierHandler implements Handler {
         } else {
             minifiers.put("javascript", new YuiJsMinifier());
         }
-        minifiers.put("css", new YuiCssMinifier());
+        if (configuration.isDebug()){
+            logger.warn("Using debug mode. Do not use this in production.");
+        }
+        minifiers.put("css", new YuiCssMinifier());        
+        debugMinifiers.put("javascript", nullMinifier);
+        debugMinifiers.put("css", new CssImportMinifier());
+    }
+
+    private Minifier getMinifier(Configuration.Bundle bundle) {
+        if (configuration.isDebug()){
+            return debugMinifiers.get(bundle.getType());    
+        }else{
+            return minifiers.get(bundle.getType());
+        }        
     }
 
     /**
@@ -119,7 +133,7 @@ public class MinifierHandler implements Handler {
 
             // check if-modified-since header
             long ifModifiedSince = request.getDateHeader("If-Modified-Since");
-            if (ifModifiedSince == -1 || lastModified > ifModifiedSince) {
+            if (configuration.isDebug() || ifModifiedSince == -1 || lastModified > ifModifiedSince) {
                 OutputStream os;
                 String acceptEncoding = request.getHeader("Accept-Encoding");
                 if (configuration.isUseGzip() && acceptEncoding != null && acceptEncoding.contains("gzip")) {
@@ -128,7 +142,7 @@ public class MinifierHandler implements Handler {
                 } else {
                     os = response.getOutputStream();
                 }
-
+       
                 long start = System.currentTimeMillis();
                 streamBundle(bundle, os, charsetEncoding, request, response);
                 logger.debug("created content in {} ms", System.currentTimeMillis()- start);
@@ -177,24 +191,42 @@ public class MinifierHandler implements Handler {
             String encoding, HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
-        // unite contents
-        List<InputStream> streams = new LinkedList<InputStream>();
-        for (Configuration.Resource res : bundle.getResources()) {
-            streams.add(getStreamForResource(res, request, response));
-        }
-        InputStream in = new CompositeInputStream(streams);
+        String path = request.getParameter("path");
 
+        InputStream in;
+        Minifier minifier;
+        // partial bundle streaming is only supported in debug mode
+        if (path != null && configuration.isDebug()){
+            Configuration.Resource res = bundle.getResourceForPath(path);
+            if (path != null){
+                in = getStreamForResource(res, request, response);
+            }else{
+                in = new ByteArrayInputStream(("No resource for path " + path).getBytes());
+            }
+            minifier = nullMinifier;
+        }else{
+            // unite contents
+            List<InputStream> streams = new LinkedList<InputStream>();
+            for (Configuration.Resource res : bundle.getResources()) {
+                streams.add(getStreamForResource(res, request, response));
+            }
+            in = new CompositeInputStream(streams);
+            minifier = getMinifier(bundle);
+        }
+        
         try {
             // uses intermediate form, to avoid HTTP 1.1 chunking
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-            Minifier minifier = minifiers.get(bundle.getType());
+            
             // minify contents
-            minifier.minify(in, out, configuration);
+            minifier.minify(in, out, bundle, configuration);
             os.write(out.toByteArray());
         } finally {
             in.close();
             os.close();
         }
+
+        
 
     }
 

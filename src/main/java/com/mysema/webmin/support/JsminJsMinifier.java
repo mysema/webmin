@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.mysema.webmin.Configuration;
+import com.mysema.webmin.Configuration.Bundle;
 import com.mysema.webmin.jsmin.JSMin;
 
 /**
@@ -20,7 +21,7 @@ import com.mysema.webmin.jsmin.JSMin;
  */
 public class JsminJsMinifier implements Minifier {
     
-    public void minify(InputStream in, OutputStream out,
+    public void minify(InputStream in, OutputStream out, Bundle bundle,
             Configuration configuration) throws IOException {
         new JSMin(in, out).jsmin();
         out.flush();

@@ -5,18 +5,12 @@
  */
 package com.mysema.webmin.support;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
 
 import org.mozilla.javascript.ErrorReporter;
 
 import com.mysema.webmin.Configuration;
+import com.mysema.webmin.Configuration.Bundle;
 import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 
 /**
@@ -29,7 +23,7 @@ public class YuiJsMinifier implements Minifier {
 
     private static final ErrorReporter errorReporter = new MinifierErrorReporter();
 
-    public void minify(InputStream in, OutputStream out,
+    public void minify(InputStream in, OutputStream out, Bundle bundle,
             Configuration configuration) throws IOException {
         
         Writer ow = new OutputStreamWriter(out, configuration.getTargetEncoding());
