@@ -23,6 +23,8 @@ public class ResourceUtil {
      * @return
      */
     public static long lastModified(URL resource){
+        if (resource == null)
+            throw new IllegalArgumentException("resource was null");
         return new File(resource.getFile()).lastModified();
     } 
 
