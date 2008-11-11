@@ -1,5 +1,8 @@
-<html>
+<document>
+  <properties>
+    <title>Web minification</title>
+  </properties>
   <body>
-    <h1>H1</h1>
+    <p>This is the documentation for the webmin project</p>    
   </body>
-</html>
+</document>
