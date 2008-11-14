@@ -38,8 +38,4 @@ public class HTMLMinifier {
         return s;
     }
     
-    public static void main(String[] args){
-        // iterate over JSP files in src/main/webapp and generate minified versions into target
-    }
-    
 }
