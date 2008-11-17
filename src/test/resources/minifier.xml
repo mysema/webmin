@@ -14,7 +14,7 @@
   <bundle path="/res/deletetag.min.js" extends="dwr,jquery">
       <max-age>3600</max-age>
       <resources>
-         <resource>/WEB-INF/scripts/deletetag.js</resource>
+         <resource l10n="true">/WEB-INF/scripts/deletetag.js</resource>
       </resources>
   </bundle>
   

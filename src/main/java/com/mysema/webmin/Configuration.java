@@ -156,9 +156,9 @@ public class Configuration {
         
         private String type = "javascript";
 
-        public void addResource(String resource, boolean forward) {
+        public void addResource(String resource, boolean forward, boolean l10n) {
             if (resource == null) throw new IllegalArgumentException("resource was null");
-            resources.add(new Resource(resource, forward));
+            resources.add(new Resource(resource, forward, l10n));
         }
         public String getLocalName(){
             return localName;
@@ -222,10 +222,12 @@ public class Configuration {
     public static class Resource{
         private final boolean forward;
         private final String path;
+        private boolean l10n; 
 
-        public Resource(String path, boolean forward) {
+        public Resource(String path, boolean forward, boolean l10n) {
             this.path = path;
             this.forward = forward;
+            this.l10n = l10n;
         }
 
         public boolean equals(Object o){
@@ -240,6 +242,9 @@ public class Configuration {
             return forward;
         }
 
+        public boolean isL10n() {
+            return l10n;
+        }
         
     }
         

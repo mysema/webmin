@@ -29,17 +29,22 @@ class ConfigurationFactory {
         Digester digester = new Digester();
         digester.addObjectCreate("minifier", Configuration.class);        
         
+        // Configuration.addBundle
         digester.addObjectCreate("minifier/bundle", Configuration.Bundle.class);        
         digester.addSetProperties("minifier/bundle");
         digester.addSetNext("minifier/bundle", "addBundle", Configuration.Bundle.class.getName());
                   
+        // Bundle.setMaxAge
         digester.addCallMethod("minifier/bundle/max-age", "setMaxage", 1, 
                 new String[]{"java.lang.Long"});
         digester.addCallParam("minifier/bundle/max-age", 0);
+        
+        // Bundle.addResource
         digester.addCallMethod("minifier/bundle/resources/resource", "addResource", 
-                2, new Class[]{String.class, Boolean.class});
-        digester.addCallParam("minifier/bundle/resources/resource",0);
+                3, new Class[]{String.class, Boolean.class, Boolean.class});
+        digester.addCallParam("minifier/bundle/resources/resource", 0);
         digester.addCallParam("minifier/bundle/resources/resource", 1, "forward");
+        digester.addCallParam("minifier/bundle/resources/resource", 2, "l10n");
         
         Configuration c = (Configuration)digester.parse(is);
         c.initialize();

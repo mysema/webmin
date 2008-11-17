@@ -54,7 +54,7 @@ public class MinifierHandler implements Handler {
     private final Map<String, Minifier> debugMinifiers = new HashMap<String,Minifier>();
     
     private final ServletContext servletContext;
-
+    
     public MinifierHandler(Configuration configuration,
             ServletContext servletContext) {
         this.servletContext = servletContext;
@@ -93,10 +93,25 @@ public class MinifierHandler implements Handler {
             HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
         if (resource.isForward()){
+            if (resource.isL10n()){
+                throw new IllegalArgumentException("Localization is not supported for forwarded resources");
+            }
             RequestDispatcher dispatcher = servletContext.getRequestDispatcher(resource.getPath());
             MinifierResponseWrapper mres = new MinifierResponseWrapper(res);
             dispatcher.forward(req, mres);
-            return new ByteArrayInputStream(mres.getBytes());            
+            return new ByteArrayInputStream(mres.getBytes());
+            
+        }else if (resource.isL10n()){    
+            String path = resource.getPath();
+            path = path.substring(0, path.lastIndexOf('.')) + "_" 
+                + req.getParameter("locale")
+                + path.substring(path.lastIndexOf('.'));
+            if (servletContext.getResourceAsStream(path) != null){
+                return servletContext.getResourceAsStream(path);              
+            }else{
+                return servletContext.getResourceAsStream(resource.getPath());
+            }
+            
         }else{
             return servletContext.getResourceAsStream(resource.getPath());
         }

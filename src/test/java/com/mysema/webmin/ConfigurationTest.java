@@ -36,7 +36,10 @@ public class ConfigurationTest {
         assertEquals("/dwr/interface/ServiceFacade.js", it.next().getPath());
         assertEquals("/dwr/engine.js", it.next().getPath());
         assertEquals("/WEB-INF/scripts/jquery/jquery-1.2.1.js", it.next().getPath());
-        assertEquals("/WEB-INF/scripts/deletetag.js", it.next().getPath());
+        
+        Resource next = it.next();
+        assertEquals("/WEB-INF/scripts/deletetag.js", next.getPath());
+        assertEquals(true, next.isL10n());
         
         Configuration.Bundle bundle = c.getBundleByName("dwr");
         assertTrue(bundle.getResources().get(0).isForward());
