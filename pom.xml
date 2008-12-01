@@ -4,11 +4,18 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+<!-- 
   <parent>
     <groupId>com.mysema</groupId>
     <artifactId>maven-parent</artifactId>
     <version>2.0.0-SNAPSHOT</version>
   </parent>
+-->
+  <parent>
+    <groupId>com.mysema.home</groupId>
+    <artifactId>mysema-source</artifactId>
+    <version>0.1.0</version>
+  </parent>  
 
   <groupId>com.mysema.web</groupId>
   <artifactId>webmin</artifactId>
@@ -76,14 +83,14 @@
     </dependency>
 
     <!-- testing -->
-
+<!-- 
     <dependency>
       <groupId>com.mysema.util</groupId>
       <artifactId>httpunit-util</artifactId>
       <version>0.1.0</version>
       <scope>test</scope>
     </dependency>
-
+ -->
   </dependencies>
 
 </project>
