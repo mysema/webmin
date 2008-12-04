@@ -109,6 +109,7 @@ public class MinifierHandler implements Handler {
             if (servletContext.getResourceAsStream(path) != null){
                 return servletContext.getResourceAsStream(path);              
             }else{
+                logger.error("Got no resource for path " + path);
                 return servletContext.getResourceAsStream(resource.getPath());
             }
             
