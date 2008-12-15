@@ -16,7 +16,7 @@
   <packaging>jar</packaging>
   <name>Web resource minifier</name>
   <description>filters and servlets for minifying HTML, CSS and JavaScript content</description>
-  <url>http://source.mysema.com/display/querydsl</url>
+  <url>http://source.mysema.com/display/webmin</url>
 
   <dependencies>
 
