@@ -28,6 +28,7 @@ public class HTMLMinifierFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
         String url = ((HttpServletRequest)request).getRequestURI();
+        // TODO : improve this
         if (url.endsWith(".js") || url.endsWith(".css")){
             chain.doFilter(request, response);
             return;
