@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
@@ -26,6 +27,12 @@ public class HTMLMinifierFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
+        String url = ((HttpServletRequest)request).getRequestURI();
+        if (url.endsWith(".js") || url.endsWith(".css")){
+            chain.doFilter(request, response);
+            return;
+        }
+        
         ServletResponse original = response;
         StringWriter targetWriter = new StringWriter(20 * 1024);
         final PrintWriter writer = new PrintWriter(targetWriter);
