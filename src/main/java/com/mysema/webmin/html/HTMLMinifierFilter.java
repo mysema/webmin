@@ -8,6 +8,9 @@ package com.mysema.webmin.html;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -22,24 +25,31 @@ import javax.servlet.http.HttpServletResponseWrapper;
  */
 public class HTMLMinifierFilter implements Filter {
     
+    private final Set<String> skipList = new HashSet<String>(Arrays.asList("js","css","gif","png","jpg","rss"));
+    
     public void destroy() {
     }
 
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
         String url = ((HttpServletRequest)request).getRequestURI();
-        // TODO : improve this
-        if (url.endsWith(".js") || url.endsWith(".css")){
+        String suffix = url.substring(url.lastIndexOf('.')+1);
+        if (skipList.contains(suffix)){
             chain.doFilter(request, response);
             return;
         }
         
-        ServletResponse original = response;
+        final HttpServletResponse original = (HttpServletResponse)response;
         StringWriter targetWriter = new StringWriter(20 * 1024);
         final PrintWriter writer = new PrintWriter(targetWriter);
         response = new HttpServletResponseWrapper((HttpServletResponse) response){
             public PrintWriter getWriter() throws IOException {
-                return writer;
+                String ct = original.getContentType();
+                if (ct.equals("text/html") || ct.equals("application/xhtml+xml")){
+                    return writer;    
+                }else{
+                    return original.getWriter();
+                }                
             }
         };
         
