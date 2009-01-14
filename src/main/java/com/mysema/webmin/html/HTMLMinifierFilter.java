@@ -45,7 +45,7 @@ public class HTMLMinifierFilter implements Filter {
         response = new HttpServletResponseWrapper((HttpServletResponse) response){
             public PrintWriter getWriter() throws IOException {
                 String ct = original.getContentType();
-                if (ct.equals("text/html") || ct.equals("application/xhtml+xml")){
+                if (ct.startsWith("text/html") || ct.startsWith("application/xhtml+xml")){
                     return writer;    
                 }else{
                     return original.getWriter();
