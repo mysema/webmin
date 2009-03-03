@@ -12,28 +12,28 @@ import com.mysema.webmin.Configuration;
 import com.mysema.webmin.Configuration.Bundle;
 
 /**
- * CssImportMinifier provides
+ * JsImportMinifier provides
  *
  * @author tiwe
  * @version $Id$
  */
-public class CssImportMinifier implements Minifier {
-
-    private static final NullMinifier nullMinifier = new NullMinifier();
+public class JsImportMinifier implements Minifier{
     
+    private static final NullMinifier nullMinifier = new NullMinifier();
+
     public void minify(HttpServletRequest req, InputStream input, OutputStream output,
             Bundle bundle, Configuration configuration) throws IOException {
         if (bundle.getResources().size() > 1){
             Writer writer = new OutputStreamWriter(output, configuration.getTargetEncoding());
-            String base = "@import url(" + bundle.getLocalName();
+            String base = req.getContextPath() + bundle.getPath();
             for (Configuration.Resource resource : bundle.getResources()){
-                writer.write(base + "?path="+resource.getPath()+");\n");
+                String path = base + "?path=" + resource.getPath();
+                writer.write("document.write(\"<script src='" + path + "' type='text/javascript'></script>\");\n");
             }
             writer.flush();
-        }else{            
+        }else{
             nullMinifier.minify(req, input, output, bundle, configuration);
-        }
-        
+        }               
     }
 
 }

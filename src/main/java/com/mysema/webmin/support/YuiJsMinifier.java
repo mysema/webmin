@@ -7,6 +7,8 @@ package com.mysema.webmin.support;
 
 import java.io.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.mozilla.javascript.ErrorReporter;
 
 import com.mysema.webmin.Configuration;
@@ -23,8 +25,8 @@ public class YuiJsMinifier implements Minifier {
 
     private static final ErrorReporter errorReporter = new MinifierErrorReporter();
 
-    public void minify(InputStream in, OutputStream out, Bundle bundle,
-            Configuration configuration) throws IOException {
+    public void minify(HttpServletRequest request, InputStream in, OutputStream out,
+            Bundle bundle, Configuration configuration) throws IOException {
         
         Writer ow = new OutputStreamWriter(out, configuration.getTargetEncoding());
 

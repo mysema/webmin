@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.io.IOUtils;
 
 import com.mysema.webmin.Configuration;
@@ -17,8 +19,8 @@ import com.mysema.webmin.Configuration.Bundle;
  */
 public class NullMinifier implements Minifier{
 
-    public void minify(InputStream input, OutputStream output, Bundle bundle,
-            Configuration configuration) throws IOException {
+    public void minify(HttpServletRequest request, InputStream input, OutputStream output,
+            Bundle bundle, Configuration configuration) throws IOException {
         IOUtils.copy(input, output);        
     }
 

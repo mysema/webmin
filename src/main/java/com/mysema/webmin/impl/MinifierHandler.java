@@ -68,7 +68,7 @@ public class MinifierHandler implements Handler {
             logger.warn("Using debug mode. Do not use this in production.");
         }
         minifiers.put("css", new YuiCssMinifier());        
-        debugMinifiers.put("javascript", nullMinifier);
+        debugMinifiers.put("javascript", new JsImportMinifier());
         debugMinifiers.put("css", new CssImportMinifier());
     }
 
@@ -235,7 +235,7 @@ public class MinifierHandler implements Handler {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             
             // minify contents
-            minifier.minify(in, out, bundle, configuration);
+            minifier.minify(request, in, out, bundle, configuration);
             os.write(out.toByteArray());
         } finally {
             in.close();
