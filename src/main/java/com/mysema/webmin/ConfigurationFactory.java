@@ -18,13 +18,7 @@ import org.xml.sax.SAXException;
  * @version $Id$
  */
 class ConfigurationFactory {
-    
-    /**
-     * @param is
-     * @return
-     * @throws IOException
-     * @throws SAXException
-     */
+
     public static Configuration readFrom(InputStream is) throws IOException, SAXException{
         Digester digester = new Digester();
         digester.addObjectCreate("minifier", Configuration.class);        

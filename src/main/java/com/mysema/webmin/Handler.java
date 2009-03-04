@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 
- * Handler provides
+ * Handler is a minimal Servlet like interface for request handling
  *
  * @author Timo Westkamper
  * @version $Id$

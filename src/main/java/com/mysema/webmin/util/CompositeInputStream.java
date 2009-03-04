@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2009 Mysema Ltd.
+ * All rights reserved.
+ * 
+ */
 package com.mysema.webmin.util;
 
 import java.io.IOException;
@@ -7,7 +12,7 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 
 /**
- * CompositeInputStream provides
+ * CompositeInputStream bundles multiple InputStreams into one
  *
  * @author Timo Westkamper
  * @version $Id$

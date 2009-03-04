@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
 /**
- * JspMinifierFilter provides
+ * HTMLMinifierFilter provides minification functionality as a Servlet filter 
  *
  * @author tiwe
  * @version $Id$
