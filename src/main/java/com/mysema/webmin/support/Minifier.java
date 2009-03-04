@@ -15,7 +15,7 @@ import com.mysema.webmin.Configuration;
 import com.mysema.webmin.Configuration.Bundle;
 
 /**
- * Minifier provides
+ * Minifier defines the interface for minification of JavaScript and CSS resources
  * 
  * @author Timo Westkamper
  * @version $Id$
@@ -23,6 +23,7 @@ import com.mysema.webmin.Configuration.Bundle;
 public interface Minifier {
     
     /**
+     * minify
      * 
      * @param request TODO
      * @param input

@@ -17,13 +17,17 @@ import com.mysema.webmin.Configuration;
 import com.mysema.webmin.Configuration.Bundle;
 
 /**
- * NullMinifier provides
+ * NullMinifier streams 
  *
  * @author Timo Westkamper
  * @version $Id$
  */
 public class NullMinifier implements Minifier{
 
+    public static NullMinifier DEFAULT = new NullMinifier();
+    
+    private NullMinifier(){}
+    
     public void minify(HttpServletRequest request, InputStream input, OutputStream output,
             Bundle bundle, Configuration configuration) throws IOException {
         IOUtils.copy(input, output);        

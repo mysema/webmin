@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import com.mysema.webmin.util.SafeResponseWrapper;
 
 /**
- * MinifierResponse provides
+ * MinifierResponse provides is a wrapped response for the minification
  *
  * @author Timo Westkamper
  * @version $Id$

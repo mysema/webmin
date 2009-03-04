@@ -17,14 +17,13 @@ import com.mysema.webmin.Configuration;
 import com.mysema.webmin.Configuration.Bundle;
 
 /**
- * CssImportMinifier provides
+ * CssImportMinifier provides a debug minifier which provides import directives 
+ * for inner CSS resources
  *
  * @author tiwe
  * @version $Id$
  */
 public class CssImportMinifier implements Minifier {
-
-    private static final NullMinifier nullMinifier = new NullMinifier();
     
     public void minify(HttpServletRequest req, InputStream input, OutputStream output,
             Bundle bundle, Configuration configuration) throws IOException {
@@ -36,7 +35,7 @@ public class CssImportMinifier implements Minifier {
             }
             writer.flush();
         }else{            
-            nullMinifier.minify(req, input, output, bundle, configuration);
+            NullMinifier.DEFAULT.minify(req, input, output, bundle, configuration);
         }
         
     }

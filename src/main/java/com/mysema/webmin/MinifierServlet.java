@@ -37,6 +37,7 @@ public class MinifierServlet extends HttpServlet {
     
     /**
      * get the servlet config parameter with the given key or return defaultValue
+     * 
      * @param key
      * @param defaultValue
      * @return

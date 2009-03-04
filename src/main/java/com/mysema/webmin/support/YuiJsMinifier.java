@@ -16,7 +16,7 @@ import com.mysema.webmin.Configuration.Bundle;
 import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 
 /**
- * YuiJsMinifier provides
+ * YuiJsMinifier provides JavaScript minification based on YUI JavaScript minification
  * 
  * @author Timo Westkamper
  * @version $Id$

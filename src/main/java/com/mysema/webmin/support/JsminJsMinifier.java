@@ -16,7 +16,7 @@ import com.mysema.webmin.Configuration.Bundle;
 import com.mysema.webmin.jsmin.JSMin;
 
 /**
- * JsminJsMinifier provides
+ * JsminJsMinifier provides JavaScript minification based on the JSMin library
  * 
  * @author Timo Westkamper
  * @version $Id$

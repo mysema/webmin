@@ -8,7 +8,7 @@ package com.mysema.webmin.html;
 import java.util.regex.Pattern;
 
 /**
- * HTMLMinifier provides
+ * HTMLMinifier provides HTML minification services
  *
  * @author tiwe
  * @version $Id$

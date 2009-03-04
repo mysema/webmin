@@ -19,7 +19,7 @@ import com.mysema.webmin.Configuration.Bundle;
 import com.yahoo.platform.yui.compressor.CssCompressor;
 
 /**
- * YUICSSMinifier provides
+ * YUICSSMinifier provides CSS minification based on YUI CSS minification
  * 
  * @author Timo Westkamper
  * @version $Id$

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 
  * Handler is a minimal Servlet like interface for request handling
  *
  * @author Timo Westkamper
@@ -22,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public interface Handler
 {
     /**
+     * Handle the given request and response
      * 
      * @param request
      * @param response

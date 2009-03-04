@@ -9,7 +9,7 @@ import java.io.File;
 import java.net.URL;
 
 /**
- * ResourceUtil provides
+ * ResourceUtil provides basic utilities for URL resources
  *
  * @author Timo Westkamper
  * @version $Id$

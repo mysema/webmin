@@ -44,8 +44,6 @@ import com.mysema.webmin.util.ResourceUtil;
 public class MinifierHandler implements Handler {
 
     private static final Logger logger = LoggerFactory.getLogger(MinifierServlet.class);
-
-    private static final Minifier nullMinifier = new NullMinifier();
     
     private final Configuration configuration;
 
@@ -219,7 +217,7 @@ public class MinifierHandler implements Handler {
             }else{
                 in = new ByteArrayInputStream(("No resource for path " + path).getBytes());
             }
-            minifier = nullMinifier;
+            minifier = NullMinifier.DEFAULT;
         }else{
             // unite contents
             List<InputStream> streams = new LinkedList<InputStream>();

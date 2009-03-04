@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * MinifierErrorReporter provides
+ * MinifierErrorReporter provides 
  *
  * @author Timo Westkamper
  * @version $Id$

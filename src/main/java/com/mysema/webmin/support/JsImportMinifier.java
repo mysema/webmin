@@ -17,15 +17,13 @@ import com.mysema.webmin.Configuration;
 import com.mysema.webmin.Configuration.Bundle;
 
 /**
- * JsImportMinifier provides
+ * JsImportMinifier provides JavaScript import statements for JavaScript debug purposes
  *
  * @author tiwe
  * @version $Id$
  */
 public class JsImportMinifier implements Minifier{
     
-    private static final NullMinifier nullMinifier = new NullMinifier();
-
     public void minify(HttpServletRequest req, InputStream input, OutputStream output,
             Bundle bundle, Configuration configuration) throws IOException {
         if (bundle.getResources().size() > 1){
@@ -37,7 +35,7 @@ public class JsImportMinifier implements Minifier{
             }
             writer.flush();
         }else{
-            nullMinifier.minify(req, input, output, bundle, configuration);
+            NullMinifier.DEFAULT.minify(req, input, output, bundle, configuration);
         }               
     }
 
