@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 
+import com.mysema.webmin.Bundle;
 import com.mysema.webmin.Configuration;
-import com.mysema.webmin.Configuration.Bundle;
 
 /**
  * NullMinifier streams 

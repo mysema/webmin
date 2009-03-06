@@ -11,8 +11,8 @@ import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.mysema.webmin.Bundle;
 import com.mysema.webmin.Configuration;
-import com.mysema.webmin.Configuration.Bundle;
 
 /**
  * Minifier defines the interface for minification of JavaScript and CSS resources

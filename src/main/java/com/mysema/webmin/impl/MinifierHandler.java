@@ -27,10 +27,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mysema.webmin.Bundle;
 import com.mysema.webmin.Configuration;
 import com.mysema.webmin.Handler;
 import com.mysema.webmin.MinifierServlet;
-import com.mysema.webmin.Configuration.Bundle;
+import com.mysema.webmin.Resource;
 import com.mysema.webmin.support.*;
 import com.mysema.webmin.util.CompositeInputStream;
 import com.mysema.webmin.util.ResourceUtil;
@@ -70,7 +71,7 @@ public class MinifierHandler implements Handler {
         debugMinifiers.put("css", new CssImportMinifier());
     }
 
-    private Minifier getMinifier(Configuration.Bundle bundle) {
+    private Minifier getMinifier(Bundle bundle) {
         if (configuration.isDebug()){
             return debugMinifiers.get(bundle.getType());    
         }else{
@@ -87,7 +88,7 @@ public class MinifierHandler implements Handler {
      * @throws IOException
      * @throws ServletException
      */
-    private InputStream getStreamForResource(Configuration.Resource resource,
+    private InputStream getStreamForResource(Resource resource,
             HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
         if (resource.isForward()){
@@ -126,7 +127,7 @@ public class MinifierHandler implements Handler {
         }
         logger.debug("path = {}", path);
 
-        Configuration.Bundle bundle = configuration.getBundleByPath(path);
+        Bundle bundle = configuration.getBundleByPath(path);
 
         if (bundle != null) {
             // content type
@@ -182,7 +183,7 @@ public class MinifierHandler implements Handler {
      */
     private long lastModified(Bundle bundle) throws MalformedURLException {
         long lastModified = 0l;
-        for (Configuration.Resource resource : bundle.getResources()) {
+        for (Resource resource : bundle.getResources()) {
             if (!resource.isForward()){
                 URL url = servletContext.getResource(resource.getPath());
                 lastModified = Math.max(lastModified, ResourceUtil.lastModified(url));
@@ -201,7 +202,7 @@ public class MinifierHandler implements Handler {
      * @param response
      * @throws Exception
      */
-    private void streamBundle(Configuration.Bundle bundle, OutputStream os,
+    private void streamBundle(Bundle bundle, OutputStream os,
             String encoding, HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
@@ -211,7 +212,7 @@ public class MinifierHandler implements Handler {
         Minifier minifier;
         // partial bundle streaming is only supported in debug mode
         if (path != null && configuration.isDebug()){
-            Configuration.Resource res = bundle.getResourceForPath(path);
+            Resource res = bundle.getResourceForPath(path);
             if (path != null){
                 in = getStreamForResource(res, request, response);
             }else{
@@ -221,7 +222,7 @@ public class MinifierHandler implements Handler {
         }else{
             // unite contents
             List<InputStream> streams = new LinkedList<InputStream>();
-            for (Configuration.Resource res : bundle.getResources()) {
+            for (Resource res : bundle.getResources()) {
                 streams.add(getStreamForResource(res, request, response));
             }
             in = new CompositeInputStream(streams);

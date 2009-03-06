@@ -14,8 +14,8 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.mysema.webmin.Bundle;
 import com.mysema.webmin.Configuration;
-import com.mysema.webmin.Configuration.Bundle;
 import com.yahoo.platform.yui.compressor.CssCompressor;
 
 /**

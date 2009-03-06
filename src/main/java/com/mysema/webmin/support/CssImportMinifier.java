@@ -13,8 +13,9 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.mysema.webmin.Bundle;
 import com.mysema.webmin.Configuration;
-import com.mysema.webmin.Configuration.Bundle;
+import com.mysema.webmin.Resource;
 
 /**
  * CssImportMinifier provides a debug minifier which provides import directives 
@@ -30,7 +31,7 @@ public class CssImportMinifier implements Minifier {
         if (bundle.getResources().size() > 1){
             Writer writer = new OutputStreamWriter(output, configuration.getTargetEncoding());
             String base = "@import url(" + bundle.getLocalName();
-            for (Configuration.Resource resource : bundle.getResources()){
+            for (Resource resource : bundle.getResources()){
                 writer.write(base + "?path="+resource.getPath()+");\n");
             }
             writer.flush();

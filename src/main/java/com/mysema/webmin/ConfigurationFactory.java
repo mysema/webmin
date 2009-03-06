@@ -21,12 +21,13 @@ class ConfigurationFactory {
 
     public static Configuration readFrom(InputStream is) throws IOException, SAXException{
         Digester digester = new Digester();
-        digester.addObjectCreate("minifier", Configuration.class);        
+        digester.addObjectCreate("minifier", Configuration.class);
+        digester.addSetProperties("minifier");
         
         // Configuration.addBundle
-        digester.addObjectCreate("minifier/bundle", Configuration.Bundle.class);        
+        digester.addObjectCreate("minifier/bundle", Bundle.class);        
         digester.addSetProperties("minifier/bundle");
-        digester.addSetNext("minifier/bundle", "addBundle", Configuration.Bundle.class.getName());
+        digester.addSetNext("minifier/bundle", "addBundle", Bundle.class.getName());
                   
         // Bundle.setMaxAge
         digester.addCallMethod("minifier/bundle/max-age", "setMaxage", 1, 

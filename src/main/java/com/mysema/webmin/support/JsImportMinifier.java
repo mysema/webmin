@@ -13,8 +13,9 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.mysema.webmin.Bundle;
 import com.mysema.webmin.Configuration;
-import com.mysema.webmin.Configuration.Bundle;
+import com.mysema.webmin.Resource;
 
 /**
  * JsImportMinifier provides JavaScript import statements for JavaScript debug purposes
@@ -29,7 +30,7 @@ public class JsImportMinifier implements Minifier{
         if (bundle.getResources().size() > 1){
             Writer writer = new OutputStreamWriter(output, configuration.getTargetEncoding());
             String base = req.getContextPath() + bundle.getPath();
-            for (Configuration.Resource resource : bundle.getResources()){
+            for (Resource resource : bundle.getResources()){
                 String path = base + "?path=" + resource.getPath();
                 writer.write("document.write(\"<script src='" + path + "' type='text/javascript'></script>\");\n");
             }

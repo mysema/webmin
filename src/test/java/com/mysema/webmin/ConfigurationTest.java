@@ -14,7 +14,6 @@ import java.util.List;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import com.mysema.webmin.Configuration.Resource;
 
 /**
  * ConfigurationTest provides
@@ -28,6 +27,8 @@ public class ConfigurationTest {
     public void testLoad() throws IOException, SAXException {
         Configuration c = ConfigurationFactory.readFrom(this.getClass()
                 .getResourceAsStream("/minifier.xml"));
+        c.initialize();
+        
         assertEquals("javascript",c.getBundleByPath("/res/deletetag.min.js").getType());
         List<Resource> resources = c.getBundleByPath("/res/deletetag.min.js").getResources();
         
@@ -41,7 +42,7 @@ public class ConfigurationTest {
         assertEquals("/WEB-INF/scripts/deletetag.js", next.getPath());
         assertEquals(true, next.isL10n());
         
-        Configuration.Bundle bundle = c.getBundleByName("dwr");
+        Bundle bundle = c.getBundleByName("dwr");
         assertTrue(bundle.getResources().get(0).isForward());
         
         bundle = c.getBundleByName("jquery");
