@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.mysema.webmin.util.Assert;
+
 /**
  * Configuration of webmin
  * 
@@ -53,13 +55,11 @@ public class Configuration {
     }
     
     Bundle getBundleByName(String name) {
-        if (name == null) throw new IllegalArgumentException("name was null");
-        return bundlesByName.get(name);
+        return bundlesByName.get(Assert.notNull(name));
     }
 
     public Bundle getBundleByPath(String path) {
-        if (path == null) throw new IllegalArgumentException("path was null");
-        return bundlesByPath.get(path);
+        return bundlesByPath.get(Assert.notNull(path));
     }
     
     public Collection<Bundle> getBundles(){

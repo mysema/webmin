@@ -8,6 +8,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.mysema.webmin.util.Assert;
+
 
 /**
  * Bundle provides
@@ -30,9 +32,8 @@ public class Bundle {
     
     private String type = "javascript";
 
-    public void addResource(String resource, boolean forward, boolean l10n) {
-        if (resource == null) throw new IllegalArgumentException("resource was null");
-        resources.add(new Resource(resource, forward, l10n));
+    public void addResource(String resource, boolean forward, boolean l10n) {       
+        resources.add(new Resource(Assert.notNull(resource), forward, l10n));
     }
     public String getLocalName(){
         return localName;
@@ -83,23 +84,19 @@ public class Bundle {
         }
     }
     public void setExtends(String _extends) {
-        if (_extends == null) throw new IllegalArgumentException("_extends was null");
-        this._extends = _extends.split(",");
+        this._extends = Assert.notNull(_extends).split(",");
     }
     public void setMaxage(long maxage) {
         this.maxage = maxage;
     }
     public void setName(String name) {
-        if (name == null) throw new IllegalArgumentException("name was null");
-        this.name = name;
+        this.name = Assert.notNull(name);
     }
     public void setPath(String path) {
-        if (path == null) throw new IllegalArgumentException("path was null");
-        this.path = path;
+        this.path = Assert.notNull(path);
         this.localName = path.substring(path.lastIndexOf('/')+1);
     }
     public void setType(String type) {
-        if (type == null) throw new IllegalArgumentException("type was null");
-        this.type = type;
+        this.type = Assert.notNull(type);
     }        
 }

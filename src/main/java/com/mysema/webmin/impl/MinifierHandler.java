@@ -33,6 +33,7 @@ import com.mysema.webmin.Handler;
 import com.mysema.webmin.MinifierServlet;
 import com.mysema.webmin.Resource;
 import com.mysema.webmin.support.*;
+import com.mysema.webmin.util.Assert;
 import com.mysema.webmin.util.CompositeInputStream;
 import com.mysema.webmin.util.ResourceUtil;
 
@@ -50,44 +51,28 @@ public class MinifierHandler implements Handler {
 
     private final Map<String, Minifier> minifiers = new HashMap<String, Minifier>();
 
-    private final Map<String, Minifier> debugMinifiers = new HashMap<String,Minifier>();
+//    private final Map<String, Minifier> debugMinifiers = new HashMap<String,Minifier>();
     
     private final ServletContext servletContext;
     
     public MinifierHandler(Configuration configuration,
             ServletContext servletContext) {
-        this.servletContext = servletContext;
-        this.configuration = configuration;
-        if (configuration.getJavascriptCompressor().equals("jsmin")) {
-            minifiers.put("javascript", new JsminJsMinifier());
-        } else {
-            minifiers.put("javascript", new YuiJsMinifier());
-        }
+        this.servletContext = Assert.notNull(servletContext);
+        this.configuration = Assert.notNull(configuration);
         if (configuration.isDebug()){
             logger.warn("Using debug mode. Do not use this in production.");
-        }
-        minifiers.put("css", new YuiCssMinifier());        
-        debugMinifiers.put("javascript", new JsImportMinifier());
-        debugMinifiers.put("css", new CssImportMinifier());
-    }
-
-    private Minifier getMinifier(Bundle bundle) {
-        if (configuration.isDebug()){
-            return debugMinifiers.get(bundle.getType());    
+            minifiers.put("javascript", new JsImportMinifier());
+            minifiers.put("css", new CssImportMinifier());
         }else{
-            return minifiers.get(bundle.getType());
-        }        
+            if (configuration.getJavascriptCompressor().equals("jsmin")) {
+                minifiers.put("javascript", new JsminJsMinifier());
+            } else {
+                minifiers.put("javascript", new YuiJsMinifier());
+            }        
+            minifiers.put("css", new YuiCssMinifier());    
+        }
     }
 
-    /**
-     * 
-     * @param path
-     * @param req
-     * @param res
-     * @return
-     * @throws IOException
-     * @throws ServletException
-     */
     private InputStream getStreamForResource(Resource resource,
             HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
@@ -226,7 +211,7 @@ public class MinifierHandler implements Handler {
                 streams.add(getStreamForResource(res, request, response));
             }
             in = new CompositeInputStream(streams);
-            minifier = getMinifier(bundle);
+            minifier = minifiers.get(bundle.getType());
         }
         
         try {
