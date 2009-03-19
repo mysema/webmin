@@ -171,6 +171,9 @@ public class MinifierHandler implements Handler {
         for (Resource resource : bundle.getResources()) {
             if (!resource.isForward()){
                 URL url = servletContext.getResource(resource.getPath());
+                if (url == null){
+                    throw new IllegalArgumentException("Got no resource for " + resource.getPath());
+                }
                 lastModified = Math.max(lastModified, ResourceUtil.lastModified(url));
             }
         }
