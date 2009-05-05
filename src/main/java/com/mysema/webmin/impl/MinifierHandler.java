@@ -50,8 +50,6 @@ public class MinifierHandler implements Handler {
     private final Configuration configuration;
 
     private final Map<String, Minifier> minifiers = new HashMap<String, Minifier>();
-
-//    private final Map<String, Minifier> debugMinifiers = new HashMap<String,Minifier>();
     
     private final ServletContext servletContext;
     
@@ -152,9 +150,8 @@ public class MinifierHandler implements Handler {
             }
 
         } else {
-            String msg = "No bundle found for path " + path;
-            response.getOutputStream().print(msg);
-            return;
+            response.sendError(HttpServletResponse.SC_NOT_FOUND,
+                "No bundle found for path " + path);
         }
 
     }
@@ -200,11 +197,16 @@ public class MinifierHandler implements Handler {
         Minifier minifier;
         // partial bundle streaming is only supported in debug mode
         if (path != null && configuration.isDebug()){
+            if (!path.startsWith("/")){
+                path = configuration.getBasePath() + path;
+            }
             Resource res = bundle.getResourceForPath(path);
-            if (path != null){
+            if (res != null){
                 in = getStreamForResource(res, request, response);
             }else{
-                in = new ByteArrayInputStream(("No resource for path " + path).getBytes());
+                response.sendError(HttpServletResponse.SC_NOT_FOUND,
+                        "No resource for path " + path);
+                return;
             }
             minifier = NullMinifier.DEFAULT;
         }else{
@@ -228,9 +230,6 @@ public class MinifierHandler implements Handler {
             in.close();
             os.close();
         }
-
-        
-
     }
 
 }

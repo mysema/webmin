@@ -31,7 +31,11 @@ public class JsImportMinifier implements Minifier{
             Writer writer = new OutputStreamWriter(output, configuration.getTargetEncoding());
             String base = req.getContextPath() + bundle.getPath();
             for (Resource resource : bundle.getResources()){
-                String path = base + "?path=" + resource.getPath();
+                String resourcePath = resource.getPath();
+                if (resourcePath.startsWith(configuration.getBasePath())){
+                    resourcePath = resourcePath.substring(configuration.getBasePath().length());
+                }
+                String path = base + "?path=" + resourcePath;
                 writer.write("document.write(\"<script src='" + path + "' type='text/javascript'></script>\");\n");
             }
             writer.flush();

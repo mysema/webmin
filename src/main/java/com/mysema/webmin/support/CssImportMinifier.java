@@ -32,7 +32,11 @@ public class CssImportMinifier implements Minifier {
             Writer writer = new OutputStreamWriter(output, configuration.getTargetEncoding());
             String base = "@import url(" + bundle.getLocalName();
             for (Resource resource : bundle.getResources()){
-                writer.write(base + "?path="+resource.getPath()+");\n");
+                String resourcePath = resource.getPath();
+                if (resourcePath.startsWith(configuration.getBasePath())){
+                    resourcePath = resourcePath.substring(configuration.getBasePath().length());
+                }
+                writer.write(base + "?path="+resourcePath+");\n");
             }
             writer.flush();
         }else{            
