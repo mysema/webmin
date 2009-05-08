@@ -13,7 +13,7 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 
-import com.mysema.webmin.util.Assert;
+import com.mysema.commons.lang.Assert;
 
 /**
  * Configuration of webmin

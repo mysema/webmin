@@ -27,13 +27,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mysema.commons.lang.Assert;
 import com.mysema.webmin.Bundle;
 import com.mysema.webmin.Configuration;
 import com.mysema.webmin.Handler;
 import com.mysema.webmin.MinifierServlet;
 import com.mysema.webmin.Resource;
 import com.mysema.webmin.support.*;
-import com.mysema.webmin.util.Assert;
 import com.mysema.webmin.util.CompositeInputStream;
 import com.mysema.webmin.util.ResourceUtil;
 

@@ -8,6 +8,8 @@ package com.mysema.webmin.util;
 import java.io.File;
 import java.net.URL;
 
+import com.mysema.commons.lang.Assert;
+
 /**
  * ResourceUtil provides basic utilities for URL resources
  *
