@@ -57,7 +57,7 @@ public class MinifierServlet extends HttpServlet {
             
             // TODO : maybe wrap this with secure reloading ?
             logger.debug("loading");                 
-            Configuration configuration = ConfigurationFactory.readFrom(confResource.openStream());
+            Configuration configuration = ConfigurationFactory.create(getServletContext(), confResource.openStream());
             configuration.setLastModified(ResourceUtil.lastModified(confResource));            
             configuration.setUseGzip(Boolean.valueOf(getParameter("useGzip","true")));
             configuration.setJavascriptCompressor(getParameter("javascriptCompressor", "jsmin"));            

@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
+
 import com.mysema.webmin.util.Assert;
 
 /**
@@ -21,39 +23,47 @@ import com.mysema.webmin.util.Assert;
  */
 public class Configuration {
     private String basePath;
+
     private Set<Bundle> bundles = new HashSet<Bundle>();
+
     private final Map<String, Bundle> bundlesByName = new HashMap<String, Bundle>();
-    
+
     private final Map<String, Bundle> bundlesByPath = new HashMap<String, Bundle>();
+
     private boolean debug;
+
     private String javascriptCompressor;
-    // general configuration
+
     private long lastModified;
-    // YUI JS minifier configuration
-    private int lineBreakPos = -1;   //Insert a line break after the specified column number    
-    
-    private boolean munge = false; //Minify only, do not obfuscate    
-    private boolean preserveAllSemiColons = true; //Preserve unnecessary semicolons        
-    private boolean preserveStringLiterals = true;    
-    private String targetEncoding = "UTF-8";    
+
+    private int lineBreakPos = -1; 
+
+    private boolean munge = false; 
+
+    private boolean preserveAllSemiColons = true;
+
+    private boolean preserveStringLiterals = true;
+
+    private String targetEncoding = "UTF-8";
+
     private boolean useGzip;
-    
-    private boolean warn = true; //Display possible errors in the code    
-    
+
+    private boolean warn = true; 
+
     public void addBundle(Bundle b) {
         bundles.add(b);
-        if (b.path != null){
-            bundlesByPath.put(b.path, b);    
+        if (b.path != null) {
+            bundlesByPath.put(b.path, b);
         }
-        if (b.name != null){
+        if (b.name != null) {
             bundlesByName.put(b.name, b);
-        }        
+        }
     }
-    
+
     public String getBasePath() {
         return basePath;
     }
-    
+
     Bundle getBundleByName(String name) {
         return bundlesByName.get(Assert.notNull(name));
     }
@@ -61,8 +71,8 @@ public class Configuration {
     public Bundle getBundleByPath(String path) {
         return bundlesByPath.get(Assert.notNull(path));
     }
-    
-    public Collection<Bundle> getBundles(){
+
+    public Collection<Bundle> getBundles() {
         return bundlesByPath.values();
     }
 
@@ -70,7 +80,7 @@ public class Configuration {
         return javascriptCompressor;
     }
 
-    public long getLastModified(){
+    public long getLastModified() {
         return lastModified;
     }
 
@@ -82,9 +92,9 @@ public class Configuration {
         return targetEncoding;
     }
 
-    public void initialize(){
-        for (Bundle b : bundles){
-            b.initialize(this);
+    public void initialize(ServletContext context) {
+        for (Bundle b : bundles) {
+            b.initialize(this, context);
         }
     }
 
@@ -106,31 +116,31 @@ public class Configuration {
 
     public boolean isUseGzip() {
         return useGzip;
-    }    
+    }
 
     public boolean isWarn() {
         return warn;
     }
-    
+
     public void setBasePath(String basePath) {
-        if (basePath != null && !basePath.endsWith("/")){
+        if (basePath != null && !basePath.endsWith("/")) {
             basePath += "/";
         }
         this.basePath = basePath;
     }
-    
+
     public void setDebug(boolean debug) {
         this.debug = debug;
     }
-    
+
     public void setJavascriptCompressor(String javascriptCompressor) {
-        this.javascriptCompressor = javascriptCompressor;        
+        this.javascriptCompressor = javascriptCompressor;
     }
-    
+
     public void setLastModified(long lastModified) {
         this.lastModified = lastModified;
     }
-    
+
     public void setLineBreakPos(int lineBreakPos) {
         this.lineBreakPos = lineBreakPos;
     }
@@ -142,23 +152,21 @@ public class Configuration {
     public void setPreserveAllSemiColons(boolean preserveAllSemiColons) {
         this.preserveAllSemiColons = preserveAllSemiColons;
     }
-    
+
     public void setPreserveStringLiterals(boolean preserveStringLiterals) {
         this.preserveStringLiterals = preserveStringLiterals;
     }
 
-    public void setTargetEncoding(String encoding){
+    public void setTargetEncoding(String encoding) {
         this.targetEncoding = encoding;
     }
-    
+
     public void setUseGzip(boolean useGzip) {
-        this.useGzip = useGzip;        
+        this.useGzip = useGzip;
     }
 
     public void setWarn(boolean warn) {
         this.warn = warn;
     }
 
-
-        
 }

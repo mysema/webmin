@@ -5,13 +5,21 @@
  */
 package com.mysema.webmin;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.springframework.core.io.FileSystemResourceLoader;
+import org.springframework.mock.web.MockServletContext;
 import org.xml.sax.SAXException;
 
 
@@ -22,13 +30,17 @@ import org.xml.sax.SAXException;
  * @version $Id$
  */
 public class ConfigurationTest {
+    
+    private Configuration c;
+    
+    @Before
+    public void setUp() throws IOException, SAXException {
+        ServletContext sc = new MockServletContext(new FileSystemResourceLoader());
+        c = ConfigurationFactory.create(sc, getClass().getResourceAsStream("/minifier.xml"));
+    }
 
     @Test
     public void testLoad() throws IOException, SAXException {
-        Configuration c = ConfigurationFactory.readFrom(this.getClass()
-                .getResourceAsStream("/minifier.xml"));
-        c.initialize();
-        
         assertEquals("javascript",c.getBundleByPath("/res/deletetag.min.js").getType());
         List<Resource> resources = c.getBundleByPath("/res/deletetag.min.js").getResources();
         
@@ -42,6 +54,10 @@ public class ConfigurationTest {
         assertEquals("/WEB-INF/scripts/deletetag.js", next.getPath());
         assertEquals(true, next.isL10n());
         
+    }
+    
+    @Test
+    public void testForward(){
         Bundle bundle = c.getBundleByName("dwr");
         assertTrue(bundle.getResources().get(0).isForward());
         
@@ -50,8 +66,15 @@ public class ConfigurationTest {
     }
     
     @Test
-    public void testImports(){
-        
+    public void testWilcard(){
+        // scripts/*;
+        assertEquals(6, c.getBundleByPath("/res/all-resources.js").getResources().size());        
+    }
+    
+    @Test
+    public void testWilcard2(){
+        // scripts/*.js
+        assertEquals(5, c.getBundleByPath("/res/all-scripts.js").getResources().size());
     }
     
 

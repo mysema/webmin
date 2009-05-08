@@ -12,13 +12,17 @@
 
   <groupId>com.mysema.web</groupId>
   <artifactId>webmin</artifactId>
-  <version>0.2.3-SNAPSHOT</version>
+  <version>0.2.4-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Web resource minifier</name>
   <description>
     filters and servlets for minifying HTML, CSS and JavaScript content
   </description>
   <url>http://source.mysema.com/display/webmin</url>
+
+  <properties>
+    <spring.version>2.5.5</spring.version>
+  </properties>  
 
   <dependencies>
 
@@ -69,25 +73,19 @@
       <version>1.3.1</version>
     </dependency>
 
-    <!-- spring -->
-
-<!-- 
+    <!-- testing -->
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>2.0.7</version>
-      <scope>provided</scope>
-    </dependency>
- -->
-    <!-- testing -->
-    <!-- 
-      <dependency>
-      <groupId>com.mysema.util</groupId>
-      <artifactId>httpunit-util</artifactId>
-      <version>0.1.0</version>
+      <artifactId>spring-core</artifactId>
+      <version>${spring.version}</version>
       <scope>test</scope>
-      </dependency>
-    -->
+    </dependency>          
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
+      <scope>test</scope>
+    </dependency>     
   </dependencies>
 
 </project>

@@ -8,6 +8,8 @@ package com.mysema.webmin;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.servlet.ServletContext;
+
 import org.apache.commons.digester.Digester;
 import org.xml.sax.SAXException;
 
@@ -19,7 +21,7 @@ import org.xml.sax.SAXException;
  */
 class ConfigurationFactory {
 
-    public static Configuration readFrom(InputStream is) throws IOException, SAXException{
+    public static Configuration create(ServletContext context, InputStream is) throws IOException, SAXException{
         Digester digester = new Digester();
         digester.addObjectCreate("minifier", Configuration.class);
         digester.addSetProperties("minifier");
@@ -42,7 +44,7 @@ class ConfigurationFactory {
         digester.addCallParam("minifier/bundle/resources/resource", 2, "l10n");
         
         Configuration c = (Configuration)digester.parse(is);
-        c.initialize();
+        c.initialize(context);
         
         return c;
     }
