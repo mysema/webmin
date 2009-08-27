@@ -53,8 +53,7 @@ public class ConfigurationTest {
         
         Resource next = it.next();
         assertEquals("/WEB-INF/scripts/deletetag.js", next.getPath());
-        assertEquals(true, next.isL10n());
-        
+        assertEquals(true, next.isL10n());        
     }
     
     @Test
@@ -78,5 +77,21 @@ public class ConfigurationTest {
         assertEquals(5, c.getBundleByPath("/res/all-scripts.js").getResources().size());
     }
     
+    @Test
+    public void testPrint(){
+        for (Bundle bundle : c.getBundles()){
+            if (bundle.getName() != null) System.out.println("bundle name : " + bundle.getName());
+            if (bundle.getPath() != null) System.out.println("bundle path : " + bundle.getPath());
+            System.out.println("bundle type : " + bundle.getType());
+            
+            for (Resource  res : bundle.getResources()){
+                System.out.print(" res path : " + res.getPath() );
+                if (res.isForward()) System.out.print(" (forward)");
+                if (res.isL10n()) System.out.print(" (l10n)");
+                System.out.println();
+            }
+            System.out.println();
+        }
+    }
 
 }
