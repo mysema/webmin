@@ -3,6 +3,7 @@
  */
 package com.mysema.webmin;
 
+
 /**
  * Resource provides
  * 
@@ -10,12 +11,13 @@ package com.mysema.webmin;
  * @version $Id$
  */
 public class Resource {
-    private final boolean forward;
+    
+    private boolean forward;
 
     private boolean l10n;
 
     private String path;
-
+    
     public Resource(String path, boolean forward, boolean l10n) {
         this.path = path;
         this.forward = forward;
@@ -40,6 +42,11 @@ public class Resource {
 
     public boolean isL10n() {
         return l10n;
+    }
+    
+    @Override
+    public String toString(){
+        return path;
     }
 
 }

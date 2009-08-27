@@ -10,8 +10,10 @@ import java.io.InputStream;
 
 import javax.servlet.ServletContext;
 
-import org.apache.commons.digester.Digester;
 import org.xml.sax.SAXException;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.Converter;
 
 /**
  * ConfigurationFactory is a Factory class for Configuration instances
@@ -20,33 +22,27 @@ import org.xml.sax.SAXException;
  * @version $Id$
  */
 class ConfigurationFactory {
+    
+    private final XStream xstream;
+    
+    private final Converter resourceConverter = new ResourceConverter();
 
-    public static Configuration create(ServletContext context, InputStream is) throws IOException, SAXException{
-        Digester digester = new Digester();
-        digester.addObjectCreate("minifier", Configuration.class);
-        digester.addSetProperties("minifier");
+    public ConfigurationFactory(){
+        xstream = new XStream();
+        xstream.autodetectAnnotations(true);
+        xstream.alias("minifier", Configuration.class);
+        xstream.alias("bundle", Bundle.class);
+        xstream.addImplicitCollection(Configuration.class, "bundles");
+        xstream.aliasField("max-age", Bundle.class, "maxage");        
+        xstream.alias("resource",Resource.class);       
+        xstream.registerConverter(resourceConverter);
         
-        // Configuration.addBundle
-        digester.addObjectCreate("minifier/bundle", Bundle.class);        
-        digester.addSetProperties("minifier/bundle");
-        digester.addSetNext("minifier/bundle", "addBundle", Bundle.class.getName());
-                  
-        // Bundle.setMaxAge
-        digester.addCallMethod("minifier/bundle/max-age", "setMaxage", 1, 
-                new String[]{"java.lang.Long"});
-        digester.addCallParam("minifier/bundle/max-age", 0);
-        
-        // Bundle.addResource
-        digester.addCallMethod("minifier/bundle/resources/resource", "addResource", 
-                3, new Class[]{String.class, Boolean.class, Boolean.class});
-        digester.addCallParam("minifier/bundle/resources/resource", 0);
-        digester.addCallParam("minifier/bundle/resources/resource", 1, "forward");
-        digester.addCallParam("minifier/bundle/resources/resource", 2, "l10n");
-        
-        Configuration c = (Configuration)digester.parse(is);
-        c.initialize(context);
-        
-        return c;
+    }
+    
+    public Configuration create(ServletContext context, InputStream is) throws IOException, SAXException{
+        Configuration configuration = (Configuration)xstream.fromXML(is);
+        configuration.initialize(context);
+        return configuration;
     }
 
 }

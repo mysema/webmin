@@ -14,6 +14,8 @@ import java.util.Set;
 import javax.servlet.ServletContext;
 
 import com.mysema.commons.lang.Assert;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 /**
  * Configuration of webmin
@@ -22,49 +24,51 @@ import com.mysema.commons.lang.Assert;
  * @version $Id$
  */
 public class Configuration {
+    
+    @XStreamAsAttribute
     private String basePath;
 
     private Set<Bundle> bundles = new HashSet<Bundle>();
+    
+    private Map<String, Bundle> bundlesByName;
 
-    private final Map<String, Bundle> bundlesByName = new HashMap<String, Bundle>();
+    private Map<String, Bundle> bundlesByPath;
 
-    private final Map<String, Bundle> bundlesByPath = new HashMap<String, Bundle>();
-
+    @XStreamOmitField
     private boolean debug;
 
+    @XStreamOmitField
     private String javascriptCompressor;
 
+    @XStreamOmitField
     private long lastModified;
 
+    @XStreamOmitField
     private int lineBreakPos = -1; 
 
+    @XStreamOmitField
     private boolean munge = false; 
 
+    @XStreamOmitField
     private boolean preserveAllSemiColons = true;
 
+    @XStreamOmitField
     private boolean preserveStringLiterals = true;
 
+    @XStreamOmitField
     private String targetEncoding = "UTF-8";
 
+    @XStreamOmitField
     private boolean useGzip;
 
+    @XStreamOmitField
     private boolean warn = true; 
-
-    public void addBundle(Bundle b) {
-        bundles.add(b);
-        if (b.path != null) {
-            bundlesByPath.put(b.path, b);
-        }
-        if (b.name != null) {
-            bundlesByName.put(b.name, b);
-        }
-    }
 
     public String getBasePath() {
         return basePath;
     }
-
-    Bundle getBundleByName(String name) {
+    
+    public Bundle getBundleByName(String name) {
         return bundlesByName.get(Assert.notNull(name));
     }
 
@@ -73,7 +77,7 @@ public class Configuration {
     }
 
     public Collection<Bundle> getBundles() {
-        return bundlesByPath.values();
+        return bundles;
     }
 
     public String getJavascriptCompressor() {
@@ -93,8 +97,21 @@ public class Configuration {
     }
 
     public void initialize(ServletContext context) {
-        for (Bundle b : bundles) {
-            b.initialize(this, context);
+        if (basePath != null && !basePath.endsWith("/")) {
+            basePath += "/";
+        }        
+        bundlesByName = new HashMap<String, Bundle>();
+        bundlesByPath = new HashMap<String, Bundle>();
+        for (Bundle bundle : bundles) {            
+            if (bundle.getPath() != null){
+                bundlesByPath.put(bundle.getPath(), bundle);
+            }
+            if (bundle.getName() != null){
+                bundlesByName.put(bundle.getName(), bundle);
+            }
+        }
+        for (Bundle bundle : bundles){
+            bundle.initialize(this, context);
         }
     }
 
@@ -123,9 +140,6 @@ public class Configuration {
     }
 
     public void setBasePath(String basePath) {
-        if (basePath != null && !basePath.endsWith("/")) {
-            basePath += "/";
-        }
         this.basePath = basePath;
     }
 

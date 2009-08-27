@@ -3,14 +3,14 @@
  */
 package com.mysema.webmin;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.servlet.ServletContext;
 
 import com.mysema.commons.lang.Assert;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 /**
  * Bundle provides
@@ -20,24 +20,29 @@ import com.mysema.commons.lang.Assert;
  */
 public class Bundle {
     
-    private String[] _extends;
+    @XStreamAsAttribute
+    @XStreamAlias("extends")
+    private String _extends;
 
     private long maxage;
 
-    String name;
+    @XStreamAsAttribute
+    private String name;
 
+    @XStreamOmitField
     private String localName;
 
-    String path;
+    @XStreamAsAttribute
+    private String path;
 
-    private final List<Resource> resources = new ArrayList<Resource>();
-
-    private String type = "javascript";
+    private List<Resource> resources = new ArrayList<Resource>();
     
-    public void addResource(String resource, boolean forward, boolean l10n) {
-        resources.add(new Resource(Assert.notNull(resource), forward, l10n));
-    }
+    @XStreamOmitField
+    private Map<String,Resource> resourceByPath;
 
+    @XStreamAsAttribute
+    private String type;
+    
     public String getLocalName() {
         return localName;
     }
@@ -55,11 +60,7 @@ public class Bundle {
     }
 
     public Resource getResourceForPath(String path) {
-        for (Resource resource : resources) {
-            if (resource.getPath().equals(path))
-                return resource;
-        }
-        return null;
+        return resourceByPath.get(path);
     }
 
     public List<Resource> getResources() {
@@ -72,7 +73,12 @@ public class Bundle {
 
     @SuppressWarnings("unchecked")
     void initialize(Configuration c, ServletContext context) {
-        
+        if (type == null){
+            type = "javascript";
+        }        
+        if (path != null){
+            localName = path.substring(path.lastIndexOf('/') + 1);
+        }
         // handle wildcards
         List<Resource> wildcards = new ArrayList<Resource>(resources.size());
         List<Resource> additions = new ArrayList<Resource>();
@@ -106,7 +112,7 @@ public class Bundle {
         if (_extends != null) {            
             // process extends
             Set<Resource> res = new LinkedHashSet<Resource>();
-            for (String name : _extends) {
+            for (String name : _extends.split(",")) {
                 Bundle parent = c.getBundleByName(name);
                 parent.initialize(c, context);
                 res.addAll(parent.getResources());
@@ -115,10 +121,15 @@ public class Bundle {
             _extends = null;
         }
         
+        resourceByPath = new HashMap<String,Resource>();
+        for (Resource resource : resources){            
+            resourceByPath.put(resource.getPath(), resource);
+        }
+        
     }
 
     public void setExtends(String _extends) {
-        this._extends = Assert.notNull(_extends).split(",");
+        this._extends = _extends;
     }
 
     public void setMaxage(long maxage) {
@@ -130,11 +141,15 @@ public class Bundle {
     }
 
     public void setPath(String path) {
-        this.path = Assert.notNull(path);
-        this.localName = path.substring(path.lastIndexOf('/') + 1);
+        this.path = Assert.notNull(path);        
     }
 
     public void setType(String type) {
         this.type = Assert.notNull(type);
+    }
+    
+    @Override
+    public String toString(){
+        return resources.toString();
     }
 }

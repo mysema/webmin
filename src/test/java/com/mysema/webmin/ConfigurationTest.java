@@ -9,7 +9,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -31,12 +30,14 @@ import org.xml.sax.SAXException;
  */
 public class ConfigurationTest {
     
+    private final ConfigurationFactory confFactory = new ConfigurationFactory();
+    
     private Configuration c;
     
     @Before
     public void setUp() throws IOException, SAXException {
         ServletContext sc = new MockServletContext(new FileSystemResourceLoader());
-        c = ConfigurationFactory.create(sc, getClass().getResourceAsStream("/minifier.xml"));
+        c = confFactory.create(sc, getClass().getResourceAsStream("/minifier.xml"));
     }
 
     @Test

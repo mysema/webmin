@@ -33,6 +33,8 @@ public class MinifierServlet extends HttpServlet {
     
     private URL confResource = null;
     
+    private final ConfigurationFactory confFactory = new ConfigurationFactory();
+    
     private transient Handler handler = null;
     
     /**
@@ -46,10 +48,8 @@ public class MinifierServlet extends HttpServlet {
         String value = getServletConfig().getInitParameter(key);
         return value != null ? value : defaultValue;
     }
-    
-    /* (non-Javadoc)
-     * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
-     */
+
+    @Override
     public void init() throws ServletException {        
         try {
             String configResourceLocation = getParameter("configResourceLocation", "/WEB-INF/minifier.xml");
@@ -57,7 +57,7 @@ public class MinifierServlet extends HttpServlet {
             
             // TODO : maybe wrap this with secure reloading ?
             logger.debug("loading");                 
-            Configuration configuration = ConfigurationFactory.create(getServletContext(), confResource.openStream());
+            Configuration configuration = confFactory.create(getServletContext(), confResource.openStream());
             configuration.setLastModified(ResourceUtil.lastModified(confResource));            
             configuration.setUseGzip(Boolean.valueOf(getParameter("useGzip","true")));
             configuration.setJavascriptCompressor(getParameter("javascriptCompressor", "jsmin"));            
@@ -73,9 +73,6 @@ public class MinifierServlet extends HttpServlet {
         }
     }
     
-    /* (non-Javadoc)
-     * @see javax.servlet.http.HttpServlet#service(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
         handler.handle(request, response);        
