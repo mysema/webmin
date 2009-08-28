@@ -25,145 +25,155 @@ public abstract class SafeResponseWrapper implements HttpServletResponse {
         this.response = response;
     }
 
+    @Override
     public void addCookie(Cookie cookie) {
-        
-        
+                
     }
 
+    @Override
     public void addDateHeader(String name, long date) {
-        
-        
+                
     }
 
+    @Override
     public void addHeader(String name, String value) {
-        
-        
+                
     }
 
+    @Override
     public void addIntHeader(String name, int value) {
-        
-        
+                
     }
 
+    @Override
     public boolean containsHeader(String name) {
         return response.containsHeader(name);
     }
 
+    @Override
     public String encodeRedirectURL(String url) {
         return response.encodeRedirectURL(url);
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
     public String encodeRedirectUrl(String url) {
         return response.encodeRedirectUrl(url);
     }
 
+    @Override
     public String encodeURL(String url) {
         return response.encodeURL(url);
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
     public String encodeUrl(String url) {
         return response.encodeUrl(url);
     }
 
+    @Override
     public void sendError(int sc) throws IOException {
-        
-        
+                
     }
 
+    @Override
     public void sendError(int sc, String msg) throws IOException {
-        
-        
+                
     }
 
+    @Override
     public void sendRedirect(String location) throws IOException {
-        
-        
+                
     }
 
+    @Override
     public void setDateHeader(String name, long date) {
-        
-        
+                
     }
 
+    @Override
     public void setHeader(String name, String value) {
-        
-        
+                
     }
 
+    @Override
     public void setIntHeader(String name, int value) {
-        
-        
+                
     }
 
+    @Override
     public void setStatus(int sc) {
-        
-        
+                
     }
 
+    @Override
     public void setStatus(int sc, String sm) {
-        
-        
+                
     }
 
+    @Override
     public void flushBuffer() throws IOException {
-        
-        
+                
     }
 
-    public int getBufferSize() {
-        
+    @Override
+    public int getBufferSize() {        
         return 0;
     }
 
+    @Override
     public String getCharacterEncoding() {
         return response.getCharacterEncoding();
     }
 
+    @Override
     public String getContentType() {
         return response.getContentType();
     }
 
+    @Override
     public Locale getLocale() {
         return response.getLocale();
     }
 
-    public boolean isCommitted() {
-        
+    @Override
+    public boolean isCommitted() {        
         return false;
     }
 
-    public void reset() {
-        
-        
-    }
-
-    public void resetBuffer() {
-        
+    @Override
+    public void reset() {        
         
     }
 
-    public void setBufferSize(int size) {
-        
-        
-    }
-
-    public void setCharacterEncoding(String charset) {
-        
+    @Override
+    public void resetBuffer() {        
         
     }
 
-    public void setContentLength(int len) {
-        
-        
-    }
-
-    public void setContentType(String type) {
-        
+    @Override
+    public void setBufferSize(int size) {        
         
     }
 
-    public void setLocale(Locale loc) {
+    @Override
+    public void setCharacterEncoding(String charset) {        
         
+    }
+
+    @Override
+    public void setContentLength(int len) {        
+        
+    }
+
+    @Override
+    public void setContentType(String type) {        
+        
+    }
+
+    @Override
+    public void setLocale(Locale loc) {        
         
     }
 
