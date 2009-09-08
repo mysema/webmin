@@ -93,7 +93,7 @@ public class Configuration {
     }
 
     public String getTargetEncoding() {
-        return targetEncoding;
+        return targetEncoding != null ? targetEncoding : "UTF-8";
     }
 
     public void initialize(ServletContext context) {

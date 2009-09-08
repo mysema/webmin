@@ -57,6 +57,11 @@ public class ConfigurationTest {
     }
     
     @Test
+    public void testEncoding(){
+        assertEquals("UTF-8", c.getTargetEncoding());
+    }
+    
+    @Test
     public void testForward(){
         Bundle bundle = c.getBundleByName("dwr");
         assertTrue(bundle.getResources().get(0).isForward());
