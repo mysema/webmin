@@ -33,10 +33,14 @@ public class CssImportMinifier implements Minifier {
             String base = "@import url(" + bundle.getLocalName();
             for (Resource resource : bundle.getResources()){
                 String resourcePath = resource.getPath();
-                if (resourcePath.startsWith(configuration.getBasePath())){
+                if (configuration.getBasePath() != null && resourcePath.startsWith(configuration.getBasePath())){
                     resourcePath = resourcePath.substring(configuration.getBasePath().length());
                 }
-                writer.write(base + "?path="+resourcePath+");\n");
+                String path = "?path=" +resourcePath;
+                if (resource.isL10n() && req.getParameter("locale") != null){
+                    path = path + "&locale=" + req.getParameter("locale");
+                }
+                writer.write(base + path+");\n");
             }
             writer.flush();
         }else{            

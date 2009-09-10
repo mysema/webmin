@@ -32,10 +32,13 @@ public class JsImportMinifier implements Minifier{
             String base = req.getContextPath() + bundle.getPath();
             for (Resource resource : bundle.getResources()){
                 String resourcePath = resource.getPath();
-                if (resourcePath.startsWith(configuration.getBasePath())){
+                if (configuration.getBasePath() != null && resourcePath.startsWith(configuration.getBasePath())){
                     resourcePath = resourcePath.substring(configuration.getBasePath().length());
                 }
                 String path = base + "?path=" + resourcePath;
+                if (resource.isL10n() && req.getParameter("locale") != null){
+                    path = path + "&locale=" + req.getParameter("locale");
+                }                
                 writer.write("document.write(\"<script src='" + path + "' type='text/javascript'></script>\");\n");
             }
             writer.flush();
