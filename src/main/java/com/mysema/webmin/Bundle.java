@@ -73,6 +73,9 @@ public class Bundle {
 
     @SuppressWarnings("unchecked")
     void initialize(Configuration c, ServletContext context) {
+        if (resources == null){
+            resources = new ArrayList<Resource>();
+        }        
         if (type == null){
             type = "javascript";
         }        
