@@ -15,7 +15,6 @@ import javax.servlet.ServletContext;
 
 import com.mysema.commons.lang.Assert;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 /**
  * Configuration of webmin
@@ -30,39 +29,29 @@ public class Configuration {
 
     private Set<Bundle> bundles = new HashSet<Bundle>();
     
-    private Map<String, Bundle> bundlesByName;
+    private transient Map<String, Bundle> bundlesByName = new HashMap<String, Bundle>();
 
-    private Map<String, Bundle> bundlesByPath;
+    private transient Map<String, Bundle> bundlesByPath = new HashMap<String, Bundle>();
 
-    @XStreamOmitField
-    private boolean debug;
+    private transient boolean debug;
 
-    @XStreamOmitField
-    private String javascriptCompressor;
+    private transient String javascriptCompressor;
 
-    @XStreamOmitField
-    private long lastModified;
+    private transient long lastModified;
 
-    @XStreamOmitField
-    private int lineBreakPos = -1; 
+    private transient int lineBreakPos = -1; 
 
-    @XStreamOmitField
-    private boolean munge = false; 
+    private transient boolean munge = false; 
 
-    @XStreamOmitField
-    private boolean preserveAllSemiColons = true;
+    private transient boolean preserveAllSemiColons = true;
 
-    @XStreamOmitField
-    private boolean preserveStringLiterals = true;
+    private transient boolean preserveStringLiterals = true;
 
-    @XStreamOmitField
-    private String targetEncoding = "UTF-8";
+    private transient String targetEncoding = "UTF-8";
 
-    @XStreamOmitField
-    private boolean useGzip;
+    private transient boolean useGzip;
 
-    @XStreamOmitField
-    private boolean warn = true; 
+    private transient boolean warn = true; 
 
     public String getBasePath() {
         return basePath;
@@ -93,15 +82,13 @@ public class Configuration {
     }
 
     public String getTargetEncoding() {
-        return targetEncoding != null ? targetEncoding : "UTF-8";
+        return targetEncoding;
     }
 
     public void initialize(ServletContext context) {
         if (basePath != null && !basePath.endsWith("/")) {
             basePath += "/";
         }        
-        bundlesByName = new HashMap<String, Bundle>();
-        bundlesByPath = new HashMap<String, Bundle>();
         for (Bundle bundle : bundles) {            
             if (bundle.getPath() != null){
                 bundlesByPath.put(bundle.getPath(), bundle);

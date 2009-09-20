@@ -10,7 +10,6 @@ import javax.servlet.ServletContext;
 import com.mysema.commons.lang.Assert;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 /**
  * Bundle provides
@@ -29,19 +28,17 @@ public class Bundle {
     @XStreamAsAttribute
     private String name;
 
-    @XStreamOmitField
-    private String localName;
+    private transient String localName;
 
     @XStreamAsAttribute
     private String path;
 
     private List<Resource> resources = new ArrayList<Resource>();
     
-    @XStreamOmitField
-    private Map<String,Resource> resourceByPath;
+    private transient Map<String,Resource> resourceByPath;
 
     @XStreamAsAttribute
-    private String type;
+    private String type; // default is "javascript"
     
     public String getLocalName() {
         return localName;
