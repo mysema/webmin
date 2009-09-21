@@ -4,6 +4,7 @@
 package com.mysema.webmin;
 
 
+
 /**
  * Resource provides
  * 
@@ -12,9 +13,9 @@ package com.mysema.webmin;
  */
 public class Resource {
     
-    private boolean forward;
+    private final boolean forward;
 
-    private boolean l10n;
+    private final boolean l10n;
 
     private String path;
     
@@ -26,6 +27,10 @@ public class Resource {
 
     public boolean equals(Object o) {
         return o instanceof Resource && ((Resource) o).path.equals(path);
+    }
+    
+    public int hashCode(){
+        return path.hashCode();
     }
 
     public String getPath() {
