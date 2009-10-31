@@ -9,7 +9,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,7 +39,8 @@ public class ConfigurationTest {
     @Before
     public void setUp() throws IOException, SAXException {
         ServletContext sc = new MockServletContext(new FileSystemResourceLoader());
-        c = confFactory.create(sc, getClass().getResourceAsStream("/minifier.xml"));
+        InputStream is = new FileInputStream("src/test/webapp/WEB-INF/minifier.xml");
+        c = confFactory.create(sc, is);
     }
 
     @Test
@@ -73,7 +76,7 @@ public class ConfigurationTest {
     @Test
     public void testWilcard(){
         // scripts/*;
-        assertEquals(6, c.getBundleByPath("/res/all-resources.js").getResources().size());        
+        assertEquals(7, c.getBundleByPath("/res/all-resources.js").getResources().size());        
     }
     
     @Test

@@ -21,6 +21,7 @@
 
   <properties>
     <spring.version>2.5.5</spring.version>
+    <jetty.version>6.1.0</jetty.version>
   </properties>
 
   <dependencies>
@@ -92,18 +93,27 @@
     </dependency>
 
     <!-- testing -->
+
+    <!-- used for MockServletRequest -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
       <version>${spring.version}</version>
       <scope>test</scope>
-    </dependency>
+    </dependency>  
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
       <version>${spring.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.mysema.commons</groupId>
+      <artifactId>mysema-commons-jetty</artifactId>
+      <version>${jetty.version}-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>    
   </dependencies>
 
   <build>

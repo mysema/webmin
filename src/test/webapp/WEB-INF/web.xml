@@ -7,6 +7,12 @@
   <servlet>
     <servlet-name>minifier</servlet-name>
     <servlet-class>com.mysema.webmin.MinifierServlet</servlet-class>
+    <!-- 
+    <init-param>
+      <param-name>javascriptCompressor</param-name>
+      <param-value>yui</param-value>
+    </init-param>
+     -->
   </servlet>
   <servlet-mapping>
     <servlet-name>minifier</servlet-name>

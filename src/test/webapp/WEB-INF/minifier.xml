@@ -58,6 +58,20 @@
       </resources>
   </bundle>
   
+  <bundle path="/res/test1.js">
+    <resources>      
+      <resource>scripts/test/prototype-1.6.0.3.js</resource>
+      <resource>scripts/test/jquery-1.3.2.js</resource>
+    </resources>
+  </bundle>
+  
+  <bundle path="/res/test2.js">
+    <resources>
+      <resource>scripts/test/jquery-1.3.2.js</resource>      
+      <resource>scripts/test/prototype-1.6.0.3.js</resource>      
+    </resources>
+  </bundle>
+  
   <!-- lib bundles -->  
 
   <bundle name="dwr">
