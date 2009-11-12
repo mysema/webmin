@@ -28,11 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.mysema.commons.lang.Assert;
-import com.mysema.webmin.Bundle;
-import com.mysema.webmin.Configuration;
-import com.mysema.webmin.Handler;
-import com.mysema.webmin.MinifierServlet;
-import com.mysema.webmin.Resource;
+import com.mysema.webmin.*;
 import com.mysema.webmin.support.*;
 import com.mysema.webmin.util.CompositeInputStream;
 import com.mysema.webmin.util.ResourceUtil;
@@ -57,8 +53,11 @@ public class MinifierHandler implements Handler {
             ServletContext servletContext) {
         this.servletContext = Assert.notNull(servletContext);
         this.configuration = Assert.notNull(configuration);
-        if (configuration.isDebug()){
-            logger.warn("Using debug mode. Do not use this in production.");
+        if (configuration.getMode() != Mode.PRODUCTION){
+            logger.warn("Using "+configuration.getMode()+" mode. Do not use this in production.");
+        }        
+        if (!configuration.getMode().isMinified()){            
+            logger.warn("Using "+configuration.getMode()+" mode. Do not use this in production.");
             minifiers.put("javascript", new JsImportMinifier());
             minifiers.put("css", new CssImportMinifier());
         }else{
@@ -124,7 +123,7 @@ public class MinifierHandler implements Handler {
             response.setDateHeader("Last-Modified", lastModified);
 
             // expires header (only in production mode)
-            if (configuration.isDebug()){
+            if (!configuration.getMode().isCached()){
                 response.setHeader("Cache-Control", "no-cache");
                 response.setDateHeader("Expires", 0);
                 response.setHeader("Pragma", "No-cache");
@@ -136,7 +135,7 @@ public class MinifierHandler implements Handler {
 
             // check if-modified-since header
             long ifModifiedSince = request.getDateHeader("If-Modified-Since");
-            if (configuration.isDebug() || ifModifiedSince == -1 || lastModified > ifModifiedSince) {
+            if (!configuration.getMode().isCached() || ifModifiedSince == -1 || lastModified > ifModifiedSince) {
                 OutputStream os;
                 String acceptEncoding = request.getHeader("Accept-Encoding");
                 if (configuration.isUseGzip() && acceptEncoding != null && acceptEncoding.contains("gzip")) {
@@ -201,7 +200,7 @@ public class MinifierHandler implements Handler {
         InputStream in;
         Minifier minifier;
         // partial bundle streaming is only supported in debug mode
-        if (path != null && configuration.isDebug()){
+        if (path != null && !configuration.getMode().isMinified()){
             if (!path.startsWith("/")){
                 path = configuration.getBasePath() + path;
             }
@@ -209,8 +208,7 @@ public class MinifierHandler implements Handler {
             if (res != null){
                 in = getStreamForResource(res, request, response);
             }else{
-                response.sendError(HttpServletResponse.SC_NOT_FOUND,
-                        "No resource for path " + path);
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "No resource for path " + path);
                 return;
             }
             minifier = NullMinifier.DEFAULT;

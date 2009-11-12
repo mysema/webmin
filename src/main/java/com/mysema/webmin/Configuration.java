@@ -33,7 +33,8 @@ public class Configuration {
 
     private transient Map<String, Bundle> bundlesByPath = new HashMap<String, Bundle>();
 
-    private transient boolean debug;
+//    private transient boolean debug;
+    private transient Mode mode;
 
     private transient String javascriptCompressor;
 
@@ -102,10 +103,6 @@ public class Configuration {
         }
     }
 
-    public boolean isDebug() {
-        return debug;
-    }
-
     public boolean isMunge() {
         return munge;
     }
@@ -128,10 +125,6 @@ public class Configuration {
 
     public void setBasePath(String basePath) {
         this.basePath = basePath;
-    }
-
-    public void setDebug(boolean debug) {
-        this.debug = debug;
     }
 
     public void setJavascriptCompressor(String javascriptCompressor) {
@@ -170,4 +163,12 @@ public class Configuration {
         this.warn = warn;
     }
 
+    public Mode getMode() {
+        return mode;
+    }
+
+    public void setMode(Mode mode) {
+        this.mode = mode;
+    }
+    
 }

@@ -36,11 +36,14 @@ public class CssImportMinifier implements Minifier {
                 if (configuration.getBasePath() != null && resourcePath.startsWith(configuration.getBasePath())){
                     resourcePath = resourcePath.substring(configuration.getBasePath().length());
                 }
-                String path = "?path=" +resourcePath;
+                StringBuilder path = new StringBuilder(base).append("?path=").append(resourcePath);                
                 if (resource.isL10n() && req.getParameter("locale") != null){
-                    path = path + "&locale=" + req.getParameter("locale");
+                    path.append("&locale=").append(req.getParameter("locale"));
                 }
-                writer.write(base + path+");\n");
+                if (req.getParameter("version") != null){
+                    path.append("&version=").append(req.getParameter("version"));
+                }
+                writer.write(path+");\n");
             }
             writer.flush();
         }else{            

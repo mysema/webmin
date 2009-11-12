@@ -35,10 +35,13 @@ public class JsImportMinifier implements Minifier{
                 if (configuration.getBasePath() != null && resourcePath.startsWith(configuration.getBasePath())){
                     resourcePath = resourcePath.substring(configuration.getBasePath().length());
                 }
-                String path = base + "?path=" + resourcePath;
+                StringBuilder path = new StringBuilder(base).append("?path=").append(resourcePath);
                 if (resource.isL10n() && req.getParameter("locale") != null){
-                    path = path + "&locale=" + req.getParameter("locale");
+                    path.append("&locale=").append(req.getParameter("locale"));
                 }                
+                if (req.getParameter("version") != null){
+                    path.append("&version=").append(req.getParameter("version"));
+                }
                 writer.write("document.write(\"<script src='" + path + "' type='text/javascript'></script>\");\n");
             }
             writer.flush();
