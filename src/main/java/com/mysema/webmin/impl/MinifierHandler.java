@@ -123,8 +123,13 @@ public class MinifierHandler implements Handler {
             long lastModified = lastModified(bundle);
             response.setDateHeader("Last-Modified", lastModified);
 
-            // expires header
-            if (bundle.getMaxage() != 0l) {
+            // expires header (only in production mode)
+            if (configuration.isDebug()){
+                response.setHeader("Cache-Control", "no-cache");
+                response.setDateHeader("Expires", 0);
+                response.setHeader("Pragma", "No-cache");
+                
+            }else if (bundle.getMaxage() > 0l) {
                 logger.debug("setting expires header");
                 response.setDateHeader("Expires", System.currentTimeMillis()+ bundle.getMaxage() * 1000);
             }
