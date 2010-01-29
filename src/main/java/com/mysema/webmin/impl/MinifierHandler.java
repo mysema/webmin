@@ -70,7 +70,8 @@ public class MinifierHandler implements Handler {
         }
     }
 
-    private InputStream getStreamForResource(Resource resource,
+    private InputStream getStreamForResource(
+            Resource resource,
             HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
         if (resource.isForward()){
@@ -80,7 +81,11 @@ public class MinifierHandler implements Handler {
             RequestDispatcher dispatcher = servletContext.getRequestDispatcher(resource.getPath());
             MinifierResponseWrapper mres = new MinifierResponseWrapper(res);
             dispatcher.forward(req, mres);
-            return new ByteArrayInputStream(mres.getBytes());
+            if (mres.getBytes() != null){
+                return new ByteArrayInputStream(mres.getBytes());    
+            }else {
+                throw new IllegalArgumentException("Forward for " + resource.getPath() + " failed");
+            }            
             
         }else if (resource.isL10n()){    
             String path = resource.getPath();
