@@ -5,6 +5,7 @@ package com.mysema.webmin;
 
 import java.util.*;
 
+import javax.annotation.Nullable;
 import javax.servlet.ServletContext;
 
 import com.mysema.commons.lang.Assert;
@@ -30,13 +31,16 @@ public class Bundle {
 
     private transient String localName;
 
+    @Nullable
     @XStreamAsAttribute
     private String path;
 
+    @Nullable
     private List<Resource> resources = new ArrayList<Resource>();
     
     private transient Map<String,Resource> resourceByPath;
 
+    @Nullable
     @XStreamAsAttribute
     private String type; // default is "javascript"
     

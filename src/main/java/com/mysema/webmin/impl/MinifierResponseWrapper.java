@@ -8,6 +8,7 @@ package com.mysema.webmin.impl;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.annotation.Nullable;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,8 +27,10 @@ public class MinifierResponseWrapper extends SafeResponseWrapper {
     
     private static final Logger logger = LoggerFactory.getLogger(MinifierResponseWrapper.class);
     
+    @Nullable
     private MinifierResponseStream stream = null;
 
+    @Nullable
     private PrintWriter writer = null;
 
     private int threshold = 0;
@@ -55,6 +58,7 @@ public class MinifierResponseWrapper extends SafeResponseWrapper {
         return stream;
     }
     
+    @Nullable
     public byte[] getBytes(){
         if (stream != null){
             return stream.getBytes();

@@ -32,32 +32,41 @@ public class HTMLMinifierFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
-        String url = ((HttpServletRequest)request).getRequestURI();
-        String suffix = url.substring(url.lastIndexOf('.')+1);
-        if (skipList.contains(suffix)){
+        if (request instanceof HttpServletRequest
+            && response instanceof HttpServletResponse){
+            String url = ((HttpServletRequest)request).getRequestURI();
+            String suffix = url.substring(url.lastIndexOf('.')+1);
+            if (skipList.contains(suffix)){
+                chain.doFilter(request, response);
+                return;
+            }
+            
+            final HttpServletResponse original = (HttpServletResponse)response;
+            StringWriter targetWriter = new StringWriter(20 * 1024);
+            final PrintWriter writer = new PrintWriter(targetWriter);
+            response = new HttpServletResponseWrapper((HttpServletResponse) response){
+                public PrintWriter getWriter() throws IOException {
+                    String ct = original.getContentType();
+                    if (ct.startsWith("text/html") || ct.startsWith("application/xhtml+xml")){
+                        return writer;    
+                    }else{
+                        return original.getWriter();
+                    }                
+                }
+            };
+            
             chain.doFilter(request, response);
-            return;
+                    
+            if (targetWriter.getBuffer().length() > 0){
+                original.getWriter().write(HTMLMinifier.minify(targetWriter.toString()));    
+            }
+            
+        }else{
+            // TODO : error logging
+            chain.doFilter(request, response);
         }
         
-        final HttpServletResponse original = (HttpServletResponse)response;
-        StringWriter targetWriter = new StringWriter(20 * 1024);
-        final PrintWriter writer = new PrintWriter(targetWriter);
-        response = new HttpServletResponseWrapper((HttpServletResponse) response){
-            public PrintWriter getWriter() throws IOException {
-                String ct = original.getContentType();
-                if (ct.startsWith("text/html") || ct.startsWith("application/xhtml+xml")){
-                    return writer;    
-                }else{
-                    return original.getWriter();
-                }                
-            }
-        };
         
-        chain.doFilter(request, response);
-                
-        if (targetWriter.getBuffer().length() > 0){
-            original.getWriter().write(HTMLMinifier.minify(targetWriter.toString()));    
-        }        
     }
 
     public void init(FilterConfig filterConfig) throws ServletException {        

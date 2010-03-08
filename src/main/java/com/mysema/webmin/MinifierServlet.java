@@ -8,6 +8,7 @@ package com.mysema.webmin;
 import java.io.IOException;
 import java.net.URL;
 
+import javax.annotation.Nullable;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,10 +32,12 @@ public class MinifierServlet extends HttpServlet {
     
     private static final long serialVersionUID = 4375394993659397518L;
     
+    @Nullable
     private URL confResource = null;
     
     private transient final ConfigurationFactory confFactory = new ConfigurationFactory();
     
+    @Nullable
     private transient Handler handler = null;
     
     /**

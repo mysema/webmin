@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -19,6 +21,7 @@ import org.apache.commons.io.IOUtils;
  */
 public class CompositeInputStream extends InputStream{
     
+    @Nullable
     private InputStream current;
 
     private List<InputStream> inputStreams;

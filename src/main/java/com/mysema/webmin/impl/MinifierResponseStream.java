@@ -8,6 +8,7 @@ package com.mysema.webmin.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import javax.annotation.Nullable;
 import javax.servlet.ServletOutputStream;
 
 import org.slf4j.Logger;
@@ -29,6 +30,7 @@ class MinifierResponseStream extends ServletOutputStream {
     /**
      * The buffer through which all of our output bytes are passed.
      */
+    @Nullable
     private byte[] buffer = null;
 
     /**
@@ -39,6 +41,7 @@ class MinifierResponseStream extends ServletOutputStream {
     /**
      * The underlying gzip output stream to which we should write data.
      */
+    @Nullable
     private ByteArrayOutputStream baos = null;
     
     /**
