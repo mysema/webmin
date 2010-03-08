@@ -78,7 +78,11 @@
       <artifactId>mysema-commons-lang</artifactId>
       <version>0.1.4</version>
     </dependency>
-
+    <dependency>
+      <groupId>net.sourceforge.collections</groupId>
+      <artifactId>collections-generic</artifactId>
+      <version>4.01</version>
+    </dependency>    
 
     <!-- bug detection -->
     <dependency>

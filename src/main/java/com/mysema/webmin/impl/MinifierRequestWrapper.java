@@ -1,12 +1,14 @@
 package com.mysema.webmin.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+
+import org.apache.commons.collections15.IteratorUtils;
 
 /**
  * MinifierRequestWrapper provides
@@ -40,17 +42,18 @@ public class MinifierRequestWrapper extends HttpServletRequestWrapper{
         }
     }
     
+    @SuppressWarnings("unchecked")
     @Override
     public Enumeration<String> getHeaderNames() {
         Enumeration<String> headerNames = super.getHeaderNames();
-        Vector<String> rv = new Vector<String>();
+        List<String> rv = new ArrayList<String>();
         while (headerNames.hasMoreElements()){
             String name = headerNames.nextElement();
             if (!SKIPPED.contains(name)){
                 rv.add(name);
             }
         }
-        return rv.elements();
+        return IteratorUtils.asEnumeration(rv.iterator());
     }
 
 }
