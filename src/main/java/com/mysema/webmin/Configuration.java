@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nullable;
 import javax.servlet.ServletContext;
 
 import com.mysema.commons.lang.Assert;
@@ -58,10 +59,12 @@ public class Configuration {
         return basePath;
     }
     
+    @Nullable
     public Bundle getBundleByName(String name) {
         return bundlesByName.get(Assert.notNull(name));
     }
 
+    @Nullable
     public Bundle getBundleByPath(String path) {
         return bundlesByPath.get(Assert.notNull(path));
     }

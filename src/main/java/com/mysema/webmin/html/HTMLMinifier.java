@@ -13,7 +13,9 @@ import java.util.regex.Pattern;
  * @author tiwe
  * @version $Id$
  */
-public class HTMLMinifier {
+public final class HTMLMinifier {
+    
+    private HTMLMinifier(){}
     
     private static final Pattern ws = Pattern.compile("\\s+");
     

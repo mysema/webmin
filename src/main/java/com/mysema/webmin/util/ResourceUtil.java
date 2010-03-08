@@ -16,7 +16,9 @@ import com.mysema.commons.lang.Assert;
  * @author Timo Westkamper
  * @version $Id$
  */
-public class ResourceUtil {
+public final class ResourceUtil {
+    
+    private ResourceUtil(){}
     
     /**
      * Returns the last modified timestamp of the given URL

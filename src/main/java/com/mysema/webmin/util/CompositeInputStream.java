@@ -40,11 +40,13 @@ public class CompositeInputStream extends InputStream{
 
     @Override
     public int read() throws IOException {
-        if (current == null) 
+        if (current == null) {
             return -1;
+        }            
         int result = current.read();
-        if (result == -1) 
+        if (result == -1) {
             result = readFromNext();
+        }            
         return result;
     }
     
@@ -62,8 +64,9 @@ public class CompositeInputStream extends InputStream{
     private int readFromNext() throws IOException {
         current.close();
         current = null;
-        if (inputStreams.isEmpty()) 
+        if (inputStreams.isEmpty()) {
             return -1;
+        }            
         current = inputStreams.remove(0);
         return current.read();
     }

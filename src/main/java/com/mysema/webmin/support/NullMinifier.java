@@ -22,9 +22,9 @@ import com.mysema.webmin.Configuration;
  * @author Timo Westkamper
  * @version $Id$
  */
-public class NullMinifier implements Minifier{
+public final class NullMinifier implements Minifier{
 
-    public static NullMinifier DEFAULT = new NullMinifier();
+    public static final NullMinifier DEFAULT = new NullMinifier();
     
     private NullMinifier(){}
     

@@ -20,6 +20,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
  */
 public class Bundle {
     
+    @Nullable
     @XStreamAsAttribute
     @XStreamAlias("extends")
     private String _extends;
@@ -100,10 +101,11 @@ public class Bundle {
                 }
                 Set<String> paths = context.getResourcePaths(prefix);
                 if (paths != null){
-                    for (String path : paths){
-                        if (path.contains(".svn")) continue;                        
-                        if (suffix == null || path.endsWith(suffix)){
-                            additions.add(new Resource(path,false,false));    
+                    for (String p : paths){
+                        if (p.contains(".svn")){
+                            continue;                        
+                        }else if (suffix == null || p.endsWith(suffix)){
+                            additions.add(new Resource(p,false,false));    
                         }                        
                     }    
                 }                
