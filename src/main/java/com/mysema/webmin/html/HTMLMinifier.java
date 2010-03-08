@@ -31,13 +31,13 @@ public final class HTMLMinifier {
     private static final Pattern blockEnd = Pattern.compile("\\s?</" + blockElements + ">\\s?");
     
     public static String minify(String s) {
-        s = ws.matcher(s).replaceAll(" ");
+        String rv = ws.matcher(s).replaceAll(" ");
         
-        s = startTagWs.matcher(s).replaceAll(">");
-        s = blockStart.matcher(s).replaceAll("<$1");
-        s = blockEnd.matcher(s).replaceAll("</$1>");       
+        rv = startTagWs.matcher(rv).replaceAll(">");
+        rv = blockStart.matcher(rv).replaceAll("<$1");
+        rv = blockEnd.matcher(rv).replaceAll("</$1>");       
         
-        return s;
+        return rv;
     }
     
 }

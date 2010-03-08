@@ -140,8 +140,8 @@ public class Bundle {
         
     }
 
-    public void setExtends(String _extends) {
-        this._extends = _extends;
+    public void setExtends(String e) {
+        this._extends = e;
     }
 
     public void setMaxage(long maxage) {

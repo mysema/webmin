@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
 import com.mysema.webmin.impl.MinifierHandler;
 import com.mysema.webmin.util.ResourceUtil;
@@ -69,10 +70,10 @@ public class MinifierServlet extends HttpServlet {
                         
             handler = new MinifierHandler(configuration, getServletContext());
                         
-        } catch (Exception e) {
-            String error = "Caught " + e.getClass().getName();
-            logger.error(error, e);
-            throw new RuntimeException(error, e);
+        } catch (IOException e) {
+            throw new MinifierException(e.getMessage(), e);
+        } catch (SAXException e) {
+            throw new MinifierException(e.getMessage(), e);
         }
     }
     
