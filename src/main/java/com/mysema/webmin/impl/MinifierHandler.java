@@ -79,8 +79,9 @@ public class MinifierHandler implements Handler {
                 throw new IllegalArgumentException("Localization is not supported for forwarded resources");
             }
             RequestDispatcher dispatcher = servletContext.getRequestDispatcher(resource.getPath());
+            MinifierRequestWrapper mreq = new MinifierRequestWrapper(req);
             MinifierResponseWrapper mres = new MinifierResponseWrapper(res);
-            dispatcher.forward(req, mres);
+            dispatcher.forward(mreq, mres);
             if (mres.getBytes() != null){
                 return new ByteArrayInputStream(mres.getBytes());    
             }else {
