@@ -3,7 +3,12 @@
  */
 package com.mysema.webmin;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 import javax.servlet.ServletContext;
@@ -61,6 +66,7 @@ public class Bundle {
         return path;
     }
 
+    @Nullable
     public Resource getResourceForPath(String path) {
         return resourceByPath.get(path);
     }
