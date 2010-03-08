@@ -161,7 +161,6 @@ public class MinifierHandler implements Handler {
 
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND,  
-//                "No bundle found for path " + path);
                   "No bundle for requested path");
         }
 
@@ -215,7 +214,7 @@ public class MinifierHandler implements Handler {
             if (res != null){
                 in = getStreamForResource(res, request, response);
             }else{
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "No resource for path " + path);
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "No resource for requested path");
                 return;
             }
             minifier = NullMinifier.DEFAULT;
