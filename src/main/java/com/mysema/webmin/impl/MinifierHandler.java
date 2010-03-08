@@ -160,8 +160,9 @@ public class MinifierHandler implements Handler {
             }
 
         } else {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND,
-                "No bundle found for path " + path);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND,  
+//                "No bundle found for path " + path);
+                  "No bundle for requested path");
         }
 
     }
