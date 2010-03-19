@@ -149,15 +149,15 @@ public class Bundle {
     }
 
     public void setName(String name) {
-        this.name = Assert.notNull(name);
+        this.name = Assert.notNull(name,"name");
     }
 
     public void setPath(String path) {
-        this.path = Assert.notNull(path);        
+        this.path = Assert.notNull(path,"path");        
     }
 
     public void setType(String type) {
-        this.type = Assert.notNull(type);
+        this.type = Assert.notNull(type,"type");
     }
     
     @Override

@@ -51,8 +51,8 @@ public class MinifierHandler implements Handler {
     
     public MinifierHandler(Configuration configuration,
             ServletContext servletContext) {
-        this.servletContext = Assert.notNull(servletContext);
-        this.configuration = Assert.notNull(configuration);
+        this.servletContext = Assert.notNull(servletContext,"servletContext");
+        this.configuration = Assert.notNull(configuration,"configuration");
         if (configuration.getMode() != Mode.PRODUCTION){
             logger.warn("Using "+configuration.getMode()+" mode. Do not use this in production.");
         }        

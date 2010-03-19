@@ -27,7 +27,7 @@ public final class ResourceUtil {
      * @return
      */
     public static long lastModified(URL resource){
-        return new File(Assert.notNull(resource).getFile()).lastModified();
+        return new File(Assert.notNull(resource,"resource").getFile()).lastModified();
     } 
 
 }

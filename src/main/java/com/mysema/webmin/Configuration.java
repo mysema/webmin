@@ -61,12 +61,12 @@ public class Configuration {
     
     @Nullable
     public Bundle getBundleByName(String name) {
-        return bundlesByName.get(Assert.notNull(name));
+        return bundlesByName.get(Assert.notNull(name,"name"));
     }
 
     @Nullable
     public Bundle getBundleByPath(String path) {
-        return bundlesByPath.get(Assert.notNull(path));
+        return bundlesByPath.get(Assert.notNull(path,"path"));
     }
 
     public Collection<Bundle> getBundles() {
