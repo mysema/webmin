@@ -41,7 +41,7 @@ import com.mysema.webmin.util.ResourceUtil;
  */
 public class MinifierHandler implements Handler {
 
-    private static final Logger logger = LoggerFactory.getLogger(MinifierServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(MinifierHandler.class);
     
     private final Configuration configuration;
 
