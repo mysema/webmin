@@ -1,7 +1,9 @@
-/**
+/*
+ * Copyright (c) 2010 Mysema Ltd.
+ * All rights reserved.
  * 
  */
-package com.mysema.webmin;
+package com.mysema.webmin.conf;
 
 
 

@@ -1,4 +1,9 @@
-package com.mysema.webmin;
+/*
+ * Copyright (c) 2010 Mysema Ltd.
+ * All rights reserved.
+ * 
+ */
+package com.mysema.webmin.conf;
 
 /**
  * Mode provides

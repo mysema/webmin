@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2007 Mysema Ltd.
+ * Copyright (c) 2010 Mysema Ltd.
  * All rights reserved.
  * 
  */
-package com.mysema.webmin;
+package com.mysema.webmin.conf;
 
 import java.util.Collection;
 import java.util.HashMap;

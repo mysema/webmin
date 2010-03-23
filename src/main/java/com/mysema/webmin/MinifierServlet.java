@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Mysema Ltd.
+ * Copyright (c) 2010 Mysema Ltd.
  * All rights reserved.
  * 
  */
@@ -18,6 +18,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
+import com.mysema.webmin.conf.Configuration;
+import com.mysema.webmin.conf.ConfigurationFactory;
+import com.mysema.webmin.conf.Handler;
+import com.mysema.webmin.conf.MinifierException;
+import com.mysema.webmin.conf.Mode;
 import com.mysema.webmin.impl.MinifierHandler;
 import com.mysema.webmin.util.ResourceUtil;
 

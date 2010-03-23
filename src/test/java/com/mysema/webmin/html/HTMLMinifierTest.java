@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Mysema Ltd.
+ * Copyright (c) 2010 Mysema Ltd.
  * All rights reserved.
  * 
  */

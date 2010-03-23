@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Mysema Ltd.
+ * Copyright (c) 2010 Mysema Ltd.
  * All rights reserved.
  * 
  */
@@ -11,8 +11,8 @@ import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.mysema.webmin.Bundle;
-import com.mysema.webmin.Configuration;
+import com.mysema.webmin.conf.Bundle;
+import com.mysema.webmin.conf.Configuration;
 
 /**
  * Minifier defines the interface for minification of JavaScript and CSS resources

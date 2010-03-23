@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Mysema Ltd.
+ * Copyright (c) 2010 Mysema Ltd.
  * All rights reserved.
  * 
  */
@@ -28,8 +28,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.mysema.commons.lang.Assert;
-import com.mysema.webmin.*;
-import com.mysema.webmin.support.*;
+import com.mysema.webmin.conf.Bundle;
+import com.mysema.webmin.conf.Configuration;
+import com.mysema.webmin.conf.Handler;
+import com.mysema.webmin.conf.Mode;
+import com.mysema.webmin.conf.Resource;
+import com.mysema.webmin.support.CssImportMinifier;
+import com.mysema.webmin.support.JsImportMinifier;
+import com.mysema.webmin.support.JsminJsMinifier;
+import com.mysema.webmin.support.Minifier;
+import com.mysema.webmin.support.NullMinifier;
+import com.mysema.webmin.support.YuiCssMinifier;
+import com.mysema.webmin.support.YuiJsMinifier;
 import com.mysema.webmin.util.CompositeInputStream;
 import com.mysema.webmin.util.ResourceUtil;
 

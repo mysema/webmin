@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2010 Mysema Ltd.
+ * All rights reserved.
+ * 
+ */
 package com.mysema.webmin;
 
 import static org.junit.Assert.assertEquals;
@@ -10,6 +15,9 @@ import org.junit.Test;
 import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.mock.web.MockServletContext;
 import org.xml.sax.SAXException;
+
+import com.mysema.webmin.conf.Configuration;
+import com.mysema.webmin.conf.ConfigurationFactory;
 
 /**
  * EmptyConfigurationTest provides

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009 Mysema Ltd.
+ * Copyright (c) 2010 Mysema Ltd.
  * All rights reserved.
  * 
  */
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 
-import com.mysema.webmin.Bundle;
-import com.mysema.webmin.Configuration;
+import com.mysema.webmin.conf.Bundle;
+import com.mysema.webmin.conf.Configuration;
 
 /**
  * NullMinifier streams 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009 Mysema Ltd.
+ * Copyright (c) 2010 Mysema Ltd.
  * All rights reserved.
  * 
  */
@@ -13,9 +13,9 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.mysema.webmin.Bundle;
-import com.mysema.webmin.Configuration;
-import com.mysema.webmin.Resource;
+import com.mysema.webmin.conf.Bundle;
+import com.mysema.webmin.conf.Configuration;
+import com.mysema.webmin.conf.Resource;
 
 /**
  * JsImportMinifier provides JavaScript import statements for JavaScript debug purposes

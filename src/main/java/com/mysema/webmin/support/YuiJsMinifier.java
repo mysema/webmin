@@ -1,18 +1,24 @@
 /*
- * Copyright (c) 2007 Mysema Ltd.
+ * Copyright (c) 2010 Mysema Ltd.
  * All rights reserved.
  * 
  */
 package com.mysema.webmin.support;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.mozilla.javascript.ErrorReporter;
 
-import com.mysema.webmin.Bundle;
-import com.mysema.webmin.Configuration;
+import com.mysema.webmin.conf.Bundle;
+import com.mysema.webmin.conf.Configuration;
 import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 
 /**
