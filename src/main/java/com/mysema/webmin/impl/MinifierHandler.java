@@ -65,7 +65,7 @@ public class MinifierHandler implements Handler {
             minifiers.put("css", new CssImportMinifier());
         }else{
             minifiers.put("javascript", new JsminJsMinifier()); 
-            minifiers.put("css", new YuiCssMinifier());    
+            minifiers.put("css", new CSSMinifier());    
         }
     }
 

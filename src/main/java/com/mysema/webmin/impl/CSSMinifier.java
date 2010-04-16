@@ -23,7 +23,7 @@ import com.mysema.webmin.conf.Configuration;
  * @author Timo Westkamper
  * @version $Id$
  */
-public class YuiCssMinifier implements Minifier {
+public class CSSMinifier implements Minifier {
 
     public void minify(HttpServletRequest request, InputStream in, OutputStream out,
             Bundle bundle, Configuration configuration) throws IOException {        
