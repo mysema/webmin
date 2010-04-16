@@ -3,7 +3,7 @@
  * All rights reserved.
  * 
  */
-package com.mysema.webmin.support;
+package com.mysema.webmin.impl;
 
 import java.io.IOException;
 import java.io.InputStream;

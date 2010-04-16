@@ -37,8 +37,6 @@ public class Configuration {
 //    private transient boolean debug;
     private transient Mode mode;
 
-    private transient String javascriptCompressor;
-
     private transient long lastModified;
 
     private transient int lineBreakPos = -1; 
@@ -71,10 +69,6 @@ public class Configuration {
 
     public Collection<Bundle> getBundles() {
         return bundles;
-    }
-
-    public String getJavascriptCompressor() {
-        return javascriptCompressor;
     }
 
     public long getLastModified() {
@@ -128,10 +122,6 @@ public class Configuration {
 
     public void setBasePath(String basePath) {
         this.basePath = basePath;
-    }
-
-    public void setJavascriptCompressor(String javascriptCompressor) {
-        this.javascriptCompressor = javascriptCompressor;
     }
 
     public void setLastModified(long lastModified) {

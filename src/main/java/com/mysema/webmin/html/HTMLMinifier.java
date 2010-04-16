@@ -21,10 +21,10 @@ public final class HTMLMinifier {
     
     private static final Pattern startTagWs = Pattern.compile("\\s>");
         
-    private static String blockElements = 
-    "(address|blockquote|center|div|dir|frameset|" +
-     "h1|h2|h3|h4|h5|h6|hr|isindex|noframes|noscript|" +
-     "p|block|pre|head|body|html|script|link|title)";
+    private static final String blockElements = 
+        "(address|blockquote|center|div|dir|frameset|" +
+        "h1|h2|h3|h4|h5|h6|hr|isindex|noframes|noscript|" +
+        "p|block|pre|head|body|html|script|link|title)";
         
     private static final Pattern blockStart = Pattern.compile("\\s?<" + blockElements);
     

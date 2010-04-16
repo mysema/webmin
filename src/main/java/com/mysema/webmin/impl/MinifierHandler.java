@@ -33,13 +33,6 @@ import com.mysema.webmin.conf.Configuration;
 import com.mysema.webmin.conf.Handler;
 import com.mysema.webmin.conf.Mode;
 import com.mysema.webmin.conf.Resource;
-import com.mysema.webmin.support.CssImportMinifier;
-import com.mysema.webmin.support.JsImportMinifier;
-import com.mysema.webmin.support.JsminJsMinifier;
-import com.mysema.webmin.support.Minifier;
-import com.mysema.webmin.support.NullMinifier;
-import com.mysema.webmin.support.YuiCssMinifier;
-import com.mysema.webmin.support.YuiJsMinifier;
 import com.mysema.webmin.util.CompositeInputStream;
 import com.mysema.webmin.util.ResourceUtil;
 
@@ -71,11 +64,7 @@ public class MinifierHandler implements Handler {
             minifiers.put("javascript", new JsImportMinifier());
             minifiers.put("css", new CssImportMinifier());
         }else{
-            if (configuration.getJavascriptCompressor().equals("jsmin")) {
-                minifiers.put("javascript", new JsminJsMinifier());
-            } else {
-                minifiers.put("javascript", new YuiJsMinifier());
-            }        
+            minifiers.put("javascript", new JsminJsMinifier()); 
             minifiers.put("css", new YuiCssMinifier());    
         }
     }

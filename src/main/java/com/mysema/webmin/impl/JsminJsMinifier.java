@@ -3,7 +3,7 @@
  * All rights reserved.
  * 
  */
-package com.mysema.webmin.support;
+package com.mysema.webmin.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,26 +11,21 @@ import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.IOUtils;
-
 import com.mysema.webmin.conf.Bundle;
 import com.mysema.webmin.conf.Configuration;
 
 /**
- * NullMinifier streams 
- *
+ * JsminJsMinifier provides JavaScript minification based on the JSMin library
+ * 
  * @author Timo Westkamper
  * @version $Id$
  */
-public final class NullMinifier implements Minifier{
-
-    public static final NullMinifier DEFAULT = new NullMinifier();
+public class JsminJsMinifier implements Minifier {
     
-    private NullMinifier(){}
-    
-    public void minify(HttpServletRequest request, InputStream input, OutputStream output,
+    public void minify(HttpServletRequest request, InputStream in, OutputStream out,
             Bundle bundle, Configuration configuration) throws IOException {
-        IOUtils.copy(input, output);        
+        new JSMin(in, out).jsmin();
+        out.flush();
     }
 
 }

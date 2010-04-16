@@ -30,11 +30,13 @@ import javax.servlet.http.HttpServletResponseWrapper;
  */
 public class HTMLMinifierFilter implements Filter {
     
-    private final Set<String> skipList = new HashSet<String>(Arrays.asList("js","css","gif","png","jpg","rss"));
+    private static final Set<String> skipList = new HashSet<String>(Arrays.asList("js","css","gif","png","jpg","rss"));
     
+    @Override
     public void destroy() {
     }
 
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
         if (request instanceof HttpServletRequest
@@ -74,6 +76,7 @@ public class HTMLMinifierFilter implements Filter {
         
     }
 
+    @Override
     public void init(FilterConfig filterConfig) throws ServletException {        
     }
 

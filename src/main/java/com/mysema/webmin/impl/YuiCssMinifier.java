@@ -3,7 +3,7 @@
  * All rights reserved.
  * 
  */
-package com.mysema.webmin.support;
+package com.mysema.webmin.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.mysema.webmin.conf.Bundle;
 import com.mysema.webmin.conf.Configuration;
-import com.yahoo.platform.yui.compressor.CssCompressor;
 
 /**
  * YUICSSMinifier provides CSS minification based on YUI CSS minification

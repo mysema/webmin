@@ -4,7 +4,7 @@
  * 
  */
 
-package com.mysema.webmin.jsmin;
+package com.mysema.webmin.impl;
 
 import java.io.IOException;
 import java.io.InputStream;

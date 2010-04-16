@@ -69,7 +69,6 @@ public class MinifierServlet extends HttpServlet {
             Configuration configuration = confFactory.create(getServletContext(), confResource.openStream());
             configuration.setLastModified(ResourceUtil.lastModified(confResource));            
             configuration.setUseGzip(Boolean.valueOf(getParameter("useGzip","true")));
-            configuration.setJavascriptCompressor(getParameter("javascriptCompressor", "jsmin"));            
             configuration.setMode(Mode.valueOf(System.getProperty("com.mysema.webmin.mode", "PRODUCTION")));            
             getServletContext().setAttribute(Configuration.class.getName(), configuration);
                         

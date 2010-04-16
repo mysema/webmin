@@ -24,7 +24,7 @@ public class CompositeInputStream extends InputStream{
     @Nullable
     private InputStream current;
 
-    private List<InputStream> inputStreams;
+    private final List<InputStream> inputStreams;
     
     public CompositeInputStream(List<InputStream> streams){
         inputStreams = streams;
