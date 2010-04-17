@@ -126,8 +126,8 @@ public class Bundle {
         if (_extends != null) {            
             // process extends
             Set<Resource> res = new LinkedHashSet<Resource>();
-            for (String name : _extends.split(",")) {
-                Bundle parent = c.getBundleByName(name);
+            for (String bundleName : _extends.split(",")) {
+                Bundle parent = c.getBundleByName(bundleName);
                 parent.initialize(c, context);
                 res.addAll(parent.getResources());
             }
