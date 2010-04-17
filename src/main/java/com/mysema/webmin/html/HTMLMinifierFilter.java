@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
  */
 public class HTMLMinifierFilter implements Filter {
     
-    private static final Set<String> skipList = new HashSet<String>(Arrays.asList("js","css","gif","png","jpg","rss"));
+    private static final Set<String> SKIP_LIST = new HashSet<String>(Arrays.asList("js","css","gif","png","jpg","rss"));
     
     @Override
     public void destroy() {
@@ -43,7 +43,7 @@ public class HTMLMinifierFilter implements Filter {
             && response instanceof HttpServletResponse){
             String url = ((HttpServletRequest)request).getRequestURI();
             String suffix = url.substring(url.lastIndexOf('.')+1);
-            if (skipList.contains(suffix)){
+            if (SKIP_LIST.contains(suffix)){
                 chain.doFilter(request, response);
                 return;
             }
