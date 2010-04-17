@@ -44,6 +44,20 @@ import com.mysema.webmin.util.ResourceUtil;
  */
 public class MinifierHandler implements Handler {
 
+    private static final String LAST_MODIFIED = "Last-Modified";
+
+    private static final String CONTENT_ENCODING = "Content-Encoding";
+
+    private static final String ACCEPT_ENCODING = "Accept-Encoding";
+
+    private static final String IF_MODIFIED_SINCE = "If-Modified-Since";
+
+    private static final String EXPIRES = "Expires";
+
+    private static final String PRAGMA = "Pragma";
+
+    private static final String CACHE_CONTROL = "Cache-Control";
+
     private static final Logger logger = LoggerFactory.getLogger(MinifierHandler.class);
     
     private final Configuration configuration;
@@ -125,26 +139,26 @@ public class MinifierHandler implements Handler {
 
             // last modified header
             long lastModified = lastModified(bundle);
-            response.setDateHeader("Last-Modified", lastModified);
+            response.setDateHeader(LAST_MODIFIED, lastModified);
 
             // expires header (only in production mode)
             if (!configuration.getMode().isCached()){
-                response.setHeader("Cache-Control", "no-cache");
-                response.setDateHeader("Expires", 0);
-                response.setHeader("Pragma", "No-cache");
+                response.setHeader(CACHE_CONTROL, "no-cache");
+                response.setDateHeader(EXPIRES, 0);
+                response.setHeader(PRAGMA, "No-cache");
                 
             }else if (bundle.getMaxage() > 0l) {
                 logger.debug("setting expires header");
-                response.setDateHeader("Expires", System.currentTimeMillis()+ bundle.getMaxage() * 1000);
+                response.setDateHeader(EXPIRES, System.currentTimeMillis()+ bundle.getMaxage() * 1000);
             }
 
             // check if-modified-since header
-            long ifModifiedSince = request.getDateHeader("If-Modified-Since");
+            long ifModifiedSince = request.getDateHeader(IF_MODIFIED_SINCE);
             if (!configuration.getMode().isCached() || ifModifiedSince == -1 || lastModified > ifModifiedSince) {
                 OutputStream os;
-                String acceptEncoding = request.getHeader("Accept-Encoding");
+                String acceptEncoding = request.getHeader(ACCEPT_ENCODING);
                 if (configuration.isUseGzip() && acceptEncoding != null && acceptEncoding.contains("gzip")) {
-                    response.setHeader("Content-Encoding", "gzip");
+                    response.setHeader(CONTENT_ENCODING, "gzip");
                     os = new GZIPOutputStream(response.getOutputStream());
                 } else {
                     os = response.getOutputStream();
