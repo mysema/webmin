@@ -41,7 +41,7 @@ public class MinifierServlet extends HttpServlet {
     @Nullable
     private URL confResource = null;
     
-    private transient final ConfigurationFactory confFactory = new ConfigurationFactory();
+    private final transient ConfigurationFactory confFactory = new ConfigurationFactory();
     
     @Nullable
     private transient Handler handler = null;

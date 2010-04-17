@@ -68,7 +68,7 @@ public class JSMin {
      * next -- get the next character, excluding comments. peek() is used to see
      * if a '/' is followed by a '/' or '*'.
      */
-    int next() throws IOException, UnterminatedCommentException {
+    int next() throws IOException{
         int c = get();
         if (c == '/') {
             switch (peek()) {
@@ -111,8 +111,7 @@ public class JSMin {
      * preceded by ( or , or =.
      */
 
-    void action(int d) throws IOException, UnterminatedRegExpLiteralException,
-            UnterminatedCommentException, UnterminatedStringLiteralException {
+    void action(int d) throws IOException{
         switch (d) {
         case 1:
             out.write(theA);
@@ -168,8 +167,7 @@ public class JSMin {
      * replaced with spaces. Carriage returns will be replaced with linefeeds.
      * Most spaces and linefeeds will be removed.
      */
-    public void jsmin() throws IOException, UnterminatedRegExpLiteralException,
-            UnterminatedCommentException, UnterminatedStringLiteralException {
+    public void jsmin() throws IOException{
         theA = '\n';
         action(3);
         while (theA != EOF) {

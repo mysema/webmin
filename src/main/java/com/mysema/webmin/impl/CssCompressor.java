@@ -31,8 +31,9 @@ public class CssCompressor {
         sb = new StringBuffer(srcsb.toString());
         while ((startIndex = sb.indexOf("/*")) >= 0) {
             endIndex = sb.indexOf("*/", startIndex + 2);
-            if (endIndex >= startIndex + 2)
+            if (endIndex >= startIndex + 2){
                 sb.delete(startIndex, endIndex + 2);
+            }                
         }
 
         css = sb.toString();

@@ -28,5 +28,5 @@ public interface Handler
      * @throws IOException
      * @throws ServletException
      */
-    public void handle(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException;
+    void handle(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException;
 }

@@ -33,6 +33,6 @@ public interface Minifier {
      * @param request
      * @throws IOException
      */
-    public void minify(HttpServletRequest request, InputStream input, OutputStream output,
+    void minify(HttpServletRequest request, InputStream input, OutputStream output,
             Bundle bundle, Configuration configuration) throws IOException;
 }
