@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * @version $Id$
  *
  */
-public class CssCompressor {
+public class CSSCompressor {
 
     private static final Pattern PATTERN1 = Pattern.compile("(^|\\})(([^\\{:])+:)+([^\\{]*\\{)");
 
@@ -47,7 +47,7 @@ public class CssCompressor {
     
     private StringBuffer srcsb = new StringBuffer();
 
-    public CssCompressor(Reader in) throws IOException {
+    public CSSCompressor(Reader in) throws IOException {
         // Read the stream...
         int c;
         while ((c = in.read()) != -1) {

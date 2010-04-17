@@ -61,10 +61,10 @@ public class MinifierHandler implements Handler {
         }        
         if (!configuration.getMode().isMinified()){            
             logger.warn("Using "+configuration.getMode()+" mode. Do not use this in production.");
-            minifiers.put("javascript", new JsImportMinifier());
-            minifiers.put("css", new CssImportMinifier());
+            minifiers.put("javascript", new JSImportMinifier());
+            minifiers.put("css", new CSSImportMinifier());
         }else{
-            minifiers.put("javascript", new JsminJsMinifier()); 
+            minifiers.put("javascript", new JSMinMinifier()); 
             minifiers.put("css", new CSSMinifier());    
         }
     }

@@ -24,7 +24,7 @@ import com.mysema.webmin.conf.Resource;
  * @author tiwe
  * @version $Id$
  */
-public class CssImportMinifier implements Minifier {
+public class CSSImportMinifier implements Minifier {
     
     public void minify(HttpServletRequest req, InputStream input, OutputStream output,
             Bundle bundle, Configuration configuration) throws IOException {

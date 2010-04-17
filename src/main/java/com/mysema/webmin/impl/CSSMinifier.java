@@ -28,7 +28,7 @@ public class CSSMinifier implements Minifier {
     public void minify(HttpServletRequest request, InputStream in, OutputStream out,
             Bundle bundle, Configuration configuration) throws IOException {        
         InputStreamReader reader = new InputStreamReader(in, "ISO-8859-1");        
-        CssCompressor compressor = new CssCompressor(reader);
+        CSSCompressor compressor = new CSSCompressor(reader);
         reader.close();
 
         Writer ow = new OutputStreamWriter(out);

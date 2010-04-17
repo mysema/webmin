@@ -20,7 +20,7 @@ import com.mysema.webmin.conf.Configuration;
  * @author Timo Westkamper
  * @version $Id$
  */
-public class JsminJsMinifier implements Minifier {
+public class JSMinMinifier implements Minifier {
     
     public void minify(HttpServletRequest request, InputStream in, OutputStream out,
             Bundle bundle, Configuration configuration) throws IOException {
