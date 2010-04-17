@@ -6,8 +6,45 @@ import java.io.Writer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * CssCompressor provides
+ *
+ * @author tiwe
+ * @version $Id$
+ *
+ */
 public class CssCompressor {
 
+    private static final Pattern PATTERN1 = Pattern.compile("(^|\\})(([^\\{:])+:)+([^\\{]*\\{)");
+
+    private static final Pattern PATTERN10 = Pattern.compile("background-position:0;");
+
+    private static final Pattern PATTERN11 = Pattern.compile("(:|\\s)0+\\.(\\d+)");
+
+    private static final Pattern PATTERN12 = Pattern.compile("([^\"'=\\s])(\\s*)#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])");
+
+    private static final Pattern PATTERN13 = Pattern.compile("[^\\}]+\\{;\\}");
+
+    private static final Pattern PATTERN2 = Pattern.compile("\\s+([!{};:>+\\(\\)\\],])");
+
+    private static final Pattern PATTERN3 = Pattern.compile("___PSEUDOCLASSCOLON___");
+
+    private static final Pattern PATTERN4 = Pattern.compile("([!{}:;>+\\(\\[,])\\s+");
+
+    private static final Pattern PATTERN5 = Pattern.compile("([^;\\}])}");
+
+    private static final Pattern PATTERN6 = Pattern.compile("([\\s:])(0)(px|em|%|in|cm|mm|pc|pt|ex)");
+
+    private static final Pattern PATTERN7 = Pattern.compile(":0 0 0 0;");
+
+    private static final Pattern PATTERN8 = Pattern.compile(":0 0 0;");
+
+    private static final Pattern PATTERN9 = Pattern.compile(":0 0;");
+
+    private static final Pattern RGB_PATTERN = Pattern.compile("rgb\\s*\\(\\s*([0-9,\\s]+)\\s*\\)");
+
+    private static final Pattern WHITE_SPACE = Pattern.compile("\\s+");
+    
     private StringBuffer srcsb = new StringBuffer();
 
     public CssCompressor(Reader in) throws IOException {
@@ -21,7 +58,6 @@ public class CssCompressor {
     public void compress(Writer out, int linebreakpos)
             throws IOException {
 
-        Pattern p;
         Matcher m;
         String css;
         StringBuffer sb;
@@ -39,14 +75,13 @@ public class CssCompressor {
         css = sb.toString();
 
         // Normalize all whitespace strings to single spaces. Easier to work with that way.
-        css = css.replaceAll("\\s+", " ");
+        css = WHITE_SPACE.matcher(css).replaceAll(" ");
 
         // Remove the spaces before the things that should not have spaces before them.
         // But, be careful not to turn "p :link {...}" into "p:link{...}"
         // Swap out any pseudo-class colons with the token, and then swap back.
         sb = new StringBuffer();
-        p = Pattern.compile("(^|\\})(([^\\{:])+:)+([^\\{]*\\{)");
-        m = p.matcher(css);
+        m = PATTERN1.matcher(css);
         while (m.find()) {
             String s = m.group();
             s = s.replaceAll(":", "___PSEUDOCLASSCOLON___");
@@ -54,32 +89,31 @@ public class CssCompressor {
         }
         m.appendTail(sb);
         css = sb.toString();
-        css = css.replaceAll("\\s+([!{};:>+\\(\\)\\],])", "$1");
-        css = css.replaceAll("___PSEUDOCLASSCOLON___", ":");
+        css = PATTERN2.matcher(css).replaceAll("$1");
+        css = PATTERN3.matcher(css).replaceAll(":");
 
         // Remove the spaces after the things that should not have spaces after them.
-        css = css.replaceAll("([!{}:;>+\\(\\[,])\\s+", "$1");
-
+        css = PATTERN4.matcher(css).replaceAll("$1");
+        
         // Add the semicolon where it's missing.
-        css = css.replaceAll("([^;\\}])}", "$1;}");
+        css = PATTERN5.matcher(css).replaceAll("$1;}");
 
         // Replace 0(px,em,%) with 0.
-        css = css.replaceAll("([\\s:])(0)(px|em|%|in|cm|mm|pc|pt|ex)", "$1$2");
+        css = PATTERN6.matcher(css).replaceAll("$1$2");
 
         // Replace 0 0 0 0; with 0.
-        css = css.replaceAll(":0 0 0 0;", ":0;");
-        css = css.replaceAll(":0 0 0;", ":0;");
-        css = css.replaceAll(":0 0;", ":0;");
+        css = PATTERN7.matcher(css).replaceAll(":0;");
+        css = PATTERN8.matcher(css).replaceAll(":0;");
+        css = PATTERN9.matcher(css).replaceAll(":0;");
         // Replace background-position:0; with background-position:0 0;
-        css = css.replaceAll("background-position:0;", "background-position:0 0;");
-
+        css = PATTERN10.matcher(css).replaceAll("background-position:0 0;");
+        
         // Replace 0.6 to .6, but only when preceded by : or a white-space
-        css = css.replaceAll("(:|\\s)0+\\.(\\d+)", "$1.$2");
+        css = PATTERN11.matcher(css).replaceAll("$1.$2");
 
         // Shorten colors from rgb(51,102,153) to #336699
         // This makes it more likely that it'll get further compressed in the next step.
-        p = Pattern.compile("rgb\\s*\\(\\s*([0-9,\\s]+)\\s*\\)");
-        m = p.matcher(css);
+        m = RGB_PATTERN.matcher(css);
         sb = new StringBuffer();
         while (m.find()) {
             String[] rgbcolors = m.group(1).split(",");
@@ -102,11 +136,10 @@ public class CssCompressor {
         // would become
         //     filter: chroma(color="#FFF");
         // which makes the filter break in IE.
-        p = Pattern.compile("([^\"'=\\s])(\\s*)#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])");
-        m = p.matcher(css);
+        m = PATTERN12.matcher(css);
         sb = new StringBuffer();
         while (m.find()) {
-            // Test for AABBCC pattern
+            // Test for AABBCC PATTERN
             if (m.group(3).equalsIgnoreCase(m.group(4)) &&
                     m.group(5).equalsIgnoreCase(m.group(6)) &&
                     m.group(7).equalsIgnoreCase(m.group(8))) {
@@ -119,7 +152,7 @@ public class CssCompressor {
         css = sb.toString();
 
         // Remove empty rules.
-        css = css.replaceAll("[^\\}]+\\{;\\}", "");
+        css = PATTERN13.matcher(css).replaceAll("");
 
         if (linebreakpos >= 0) {
             // Some source control tools don't like it when files containing lines longer
