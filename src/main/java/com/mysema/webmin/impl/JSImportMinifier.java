@@ -42,7 +42,7 @@ public class JSImportMinifier implements Minifier{
                 if (req.getParameter("version") != null){
                     path.append("&version=").append(req.getParameter("version"));
                 }
-                writer.write("document.write(\"<script src='" + path + "' type='application/javascript'></script>\");\n");
+                writer.write("document.write(\"<script src='" + path + "' type='text/javascript'></script>\");\n");
             }
             writer.flush();
         }else{
