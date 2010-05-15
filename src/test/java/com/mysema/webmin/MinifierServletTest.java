@@ -40,16 +40,8 @@ public class MinifierServletTest extends AbstractWebTest {
     
     @Test
     public void testJavascript() throws Exception{
-          goTo("/res/test1.js");
-          goTo("/res/test2.js");
-          
-//        goTo("/res/deletetag.min.js");
-//        assertTrue(res.getContentAsString().contains("jQuery"));
-//        
-//        goTo("/res/edit.min.js");
-//        goTo("/res/renametag.min.js");
-//        goTo("/res/subscribe.min.js");
-//        goTo("/res/toggle.min.js");
+        goTo("/res/test1.js");
+        goTo("/res/test2.js");
     }
 
 
