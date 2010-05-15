@@ -27,7 +27,7 @@ public class JSImportMinifierTest {
         Configuration configuration = new Configuration();
         Bundle bundle = new Bundle();
         bundle.getResources().add(new Resource("/path1",true,false));
-        bundle.getResources().add(new Resource("/path2",false,false));
+        bundle.getResources().add(new Resource("/path2",false,true));
         MockHttpServletRequest request = new MockHttpServletRequest("GET","/index.html");
         ByteArrayInputStream input = new ByteArrayInputStream("Hello World".getBytes("UTF-8"));
         ByteArrayOutputStream output = new ByteArrayOutputStream();
