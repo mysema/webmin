@@ -7,6 +7,7 @@ package com.mysema.webmin.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -24,17 +25,17 @@ public class CompositeInputStream extends InputStream{
     @Nullable
     private InputStream current;
 
-    private final List<InputStream> inputStreams;
+    private final Iterator<InputStream> inputStreams;
     
     public CompositeInputStream(List<InputStream> streams){
-        inputStreams = streams;
-        current = inputStreams.remove(0);
+        inputStreams = streams.iterator();
+        current = inputStreams.next();
     }
     
     @Override
     public void close() throws IOException {
-        while (!inputStreams.isEmpty()){
-            IOUtils.closeQuietly(inputStreams.remove(0));
+        while (inputStreams.hasNext()){
+            IOUtils.closeQuietly(inputStreams.next());
         }
     }
 
@@ -50,24 +51,13 @@ public class CompositeInputStream extends InputStream{
         return result;
     }
     
-//    public int read(byte b[], int off, int len) throws IOException {
-//        if (current == null)
-//            return -1;
-//        int read = current.read(b,off,len);
-//        if (read < len && !inputStreams.isEmpty()){
-//            current.close();
-//            current = inputStreams.remove(0);
-//        }
-//        return read;
-//    }
-    
     private int readFromNext() throws IOException {
         current.close();
         current = null;
-        if (inputStreams.isEmpty()) {
+        if (!inputStreams.hasNext()) {
             return -1;
         }            
-        current = inputStreams.remove(0);
+        current = inputStreams.next();
         return current.read();
     }
 
