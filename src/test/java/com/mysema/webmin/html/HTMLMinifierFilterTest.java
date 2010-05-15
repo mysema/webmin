@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
 import org.junit.Test;
 import org.springframework.mock.web.MockFilterChain;
@@ -24,8 +26,18 @@ public class HTMLMinifierFilterTest {
         MockHttpServletRequest request = new MockHttpServletRequest("GET", "/index.html");
         MockHttpServletResponse response = new MockHttpServletResponse();
         HTMLMinifierFilter filter = new HTMLMinifierFilter();
-        filter.doFilter(request, response, new MockFilterChain());
-        assertEquals("", response.getContentAsString());
+        filter.doFilter(request, response, new MockFilterChain(){
+            @Override
+            public void doFilter(ServletRequest request, ServletResponse response) {
+                try {
+                    response.setContentType("text/html");
+                    response.getWriter().append("<html>\n<body>\n</body>\n</html>");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        assertEquals("<html><body></body></html>", response.getContentAsString());
     }
 
 }
