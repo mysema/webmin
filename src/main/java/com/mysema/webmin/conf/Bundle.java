@@ -30,7 +30,7 @@ public class Bundle {
     @Nullable
     @XStreamAsAttribute
     @XStreamAlias("extends")
-    private String _extends;
+    private String extendsAsString;
 
     private long maxage;
 
@@ -123,16 +123,16 @@ public class Bundle {
         resources.removeAll(wildcards);
         resources.addAll(additions);
     
-        if (_extends != null) {            
+        if (extendsAsString != null) {            
             // process extends
             Set<Resource> res = new LinkedHashSet<Resource>();
-            for (String bundleName : _extends.split(",")) {
+            for (String bundleName : extendsAsString.split(",")) {
                 Bundle parent = c.getBundleByName(bundleName);
                 parent.initialize(c, context);
                 res.addAll(parent.getResources());
             }
             resources.addAll(0, res);
-            _extends = null;
+            extendsAsString = null;
         }
         
         resourceByPath = new HashMap<String,Resource>();
@@ -143,7 +143,7 @@ public class Bundle {
     }
 
     public void setExtends(String e) {
-        this._extends = e;
+        this.extendsAsString = e;
     }
 
     public void setMaxage(long maxage) {

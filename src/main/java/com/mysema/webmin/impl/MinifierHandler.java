@@ -165,7 +165,7 @@ public class MinifierHandler implements Handler {
                 }
        
                 long start = System.currentTimeMillis();
-                streamBundle(bundle, os, charsetEncoding, request, response);
+                streamBundle(bundle, os, request, response);
                 logger.debug("created content in {} ms", System.currentTimeMillis()- start);
             } else {
                 logger.debug("{} not modified", path);
@@ -205,13 +205,13 @@ public class MinifierHandler implements Handler {
      * 
      * @param bundle
      * @param os
-     * @param encoding
      * @param request
      * @param response
      * @throws Exception
      */
-    private void streamBundle(Bundle bundle, OutputStream os,
-            String encoding, HttpServletRequest request,
+    private void streamBundle(Bundle bundle, 
+            OutputStream os,
+            HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
         String path = request.getParameter("path");

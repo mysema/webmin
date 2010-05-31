@@ -51,7 +51,7 @@ public class HTMLMinifierFilter implements Filter {
             final HttpServletResponse original = (HttpServletResponse)response;
             StringWriter targetWriter = new StringWriter(20 * 1024);
             final PrintWriter writer = new PrintWriter(targetWriter);
-            response = new HttpServletResponseWrapper((HttpServletResponse) response){
+            HttpServletResponse filtered = new HttpServletResponseWrapper((HttpServletResponse) response){
                 public PrintWriter getWriter() throws IOException {
                     String ct = original.getContentType();
                     if (ct.startsWith("text/html") || ct.startsWith("application/xhtml+xml")){
@@ -62,7 +62,7 @@ public class HTMLMinifierFilter implements Filter {
                 }
             };
             
-            chain.doFilter(request, response);
+            chain.doFilter(request, filtered);
                     
             if (targetWriter.getBuffer().length() > 0){
                 original.getWriter().write(HTMLMinifier.minify(targetWriter.toString()));    
