@@ -21,7 +21,7 @@
 
   <properties>
     <spring.version>2.5.5</spring.version>
-    <jetty.version>6.1.0</jetty.version>
+    <jetty.version>6.1.15</jetty.version>
   </properties>
 
   <dependencies>
@@ -107,7 +107,7 @@
     <dependency>
       <groupId>com.mysema.commons</groupId>
       <artifactId>mysema-commons-jetty</artifactId>
-      <version>${jetty.version}-SNAPSHOT</version>
+      <version>${jetty.version}</version>
       <scope>test</scope>
     </dependency>    
   </dependencies>
@@ -120,5 +120,7 @@
       </plugin>
     </plugins>
   </build>
+  
+  
 
 </project>

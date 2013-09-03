@@ -1,0 +1,14 @@
+target
+devops/modules/*
+devops/.tmp
+devops/.librarian
+devops/.vagrant
+devops/*.lock
+!devops/modules/edithdb
+.idea
+*.iml
+.DS_Store
+.classpath
+.project
+.settings
+etc/*dump
