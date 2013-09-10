@@ -20,10 +20,8 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 /**
- * Bundle provides
- * 
  * @author tiwe
- * @version $Id$
+ *
  */
 public class Bundle {
     

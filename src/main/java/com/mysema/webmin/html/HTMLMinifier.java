@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
  * HTMLMinifier provides HTML minification services
  *
  * @author tiwe
- * @version $Id$
  */
 public final class HTMLMinifier {
     

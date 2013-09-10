@@ -17,10 +17,7 @@ import com.mysema.webmin.conf.Bundle;
 import com.mysema.webmin.conf.Configuration;
 
 /**
- * NullMinifier streams 
- *
- * @author Timo Westkamper
- * @version $Id$
+ * @author tiwe
  */
 public final class NullMinifier implements Minifier{
 

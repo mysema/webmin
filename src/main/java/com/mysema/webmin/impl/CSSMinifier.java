@@ -20,8 +20,7 @@ import com.mysema.webmin.conf.Configuration;
 /**
  * YUICSSMinifier provides CSS minification based on YUI CSS minification
  * 
- * @author Timo Westkamper
- * @version $Id$
+ * @author tiwe
  */
 public class CSSMinifier implements Minifier {
 

@@ -13,8 +13,7 @@ import com.mysema.commons.lang.Assert;
 /**
  * ResourceUtil provides basic utilities for URL resources
  *
- * @author Timo Westkamper
- * @version $Id$
+ * @author tiwe
  */
 public final class ResourceUtil {
     

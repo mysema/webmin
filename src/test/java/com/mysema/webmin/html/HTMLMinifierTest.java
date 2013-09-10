@@ -10,16 +10,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-/**
- * MinfierWriterAdapterTest provides
- *
- * @author tiwe
- * @version $Id$
- */
 public class HTMLMinifierTest {
 
     @Test
-    public void testMinify() {
+    public void Minify() {
         assertEquals("<b> </b>", minify("<b>   \n\t  </b>"));
         assertEquals("</a> <a>", minify("</a> <a>"));
         assertEquals("/<a> abc", minify("/<a> \n abc"));

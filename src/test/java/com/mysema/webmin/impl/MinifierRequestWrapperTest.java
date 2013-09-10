@@ -5,13 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-
-/**
- * MinifierRequestWrapperTest provides
- *
- * @author tiwe
- * @version $Id$
- */
 public class MinifierRequestWrapperTest {
     
     @Test

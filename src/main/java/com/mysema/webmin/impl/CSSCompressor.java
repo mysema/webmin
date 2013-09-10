@@ -7,11 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * CssCompressor provides
- *
  * @author tiwe
- * @version $Id$
- *
  */
 public class CSSCompressor {
 

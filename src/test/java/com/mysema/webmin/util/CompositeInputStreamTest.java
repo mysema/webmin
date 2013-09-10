@@ -11,13 +11,6 @@ import java.util.Arrays;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-
-/**
- * CompositeInputStreamTest provides
- *
- * @author tiwe
- * @version $Id$
- */
 public class CompositeInputStreamTest {
 
     @Test

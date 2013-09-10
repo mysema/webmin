@@ -16,11 +16,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * MinifierResponseStream provides
- *
- * @author Timo Westkamper
- * @version $Id$
- *
+ * @author tiwe
  */
 class MinifierResponseStream extends ServletOutputStream {
     

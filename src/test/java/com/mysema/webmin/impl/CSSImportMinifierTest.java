@@ -13,16 +13,10 @@ import com.mysema.webmin.conf.Bundle;
 import com.mysema.webmin.conf.Configuration;
 import com.mysema.webmin.conf.Resource;
 
-/**
- * CSSImportMinifierTest provides
- *
- * @author tiwe
- * @version $Id$
- */
 public class CSSImportMinifierTest {
 
     @Test
-    public void testMinify() throws IOException {
+    public void Minify() throws IOException {
         Minifier minifier = new CSSImportMinifier();
         Configuration configuration = new Configuration();
         Bundle bundle = new Bundle();

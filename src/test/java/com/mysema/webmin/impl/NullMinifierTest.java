@@ -12,16 +12,10 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import com.mysema.webmin.conf.Bundle;
 import com.mysema.webmin.conf.Configuration;
 
-/**
- * NullMinifierTest provides
- *
- * @author tiwe
- * @version $Id$
- */
 public class NullMinifierTest {
 
     @Test
-    public void testMinify() throws IOException {
+    public void Minify() throws IOException {
         NullMinifier minifier = NullMinifier.DEFAULT;
         Configuration configuration = new Configuration();
         Bundle bundle = new Bundle();

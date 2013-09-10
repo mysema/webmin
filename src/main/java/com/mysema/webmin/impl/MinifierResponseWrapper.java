@@ -20,8 +20,7 @@ import com.mysema.webmin.util.SafeResponseWrapper;
 /**
  * MinifierResponse provides is a wrapped response for the minification
  *
- * @author Timo Westkamper
- * @version $Id$
+ * @author tiwe
  */
 public class MinifierResponseWrapper extends SafeResponseWrapper {
     

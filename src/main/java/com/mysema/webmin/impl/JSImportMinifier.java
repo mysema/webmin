@@ -21,7 +21,6 @@ import com.mysema.webmin.conf.Resource;
  * JsImportMinifier provides JavaScript import statements for JavaScript debug purposes
  *
  * @author tiwe
- * @version $Id$
  */
 public class JSImportMinifier implements Minifier{
     

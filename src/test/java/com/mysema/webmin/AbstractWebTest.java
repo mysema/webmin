@@ -18,12 +18,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletConfig;
 import org.springframework.mock.web.MockServletContext;
 
-/**
- * AbstractWebTest provides
- *
- * @author tiwe
- * @version $Id$
- */
 public abstract class AbstractWebTest {
     
     private MinifierServlet servlet;

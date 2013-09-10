@@ -20,8 +20,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 /**
  * Configuration of webmin
  * 
- * @author Timo Westkamper
- * @version $Id$
+ * @author tiwe
  */
 public class Configuration {
     

@@ -11,16 +11,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-/**
- * MinifierServletTest provides
- * 
- * @author Timo Westkamper
- * @version $Id$
- */
 public class MinifierServletTest extends AbstractWebTest {
     
     @Test
-    public void testCss() throws Exception{
+    public void Css() throws Exception{
         goTo("/res/bookmarks.min.css");
         assertTrue(res.getContentAsString().contains("body"));
 //        assertNotNull(res.getHeader("Content-Encoding"));
@@ -29,7 +23,7 @@ public class MinifierServletTest extends AbstractWebTest {
     }
     
     @Test
-    public void test_bug289() throws Exception{
+    public void bug289() throws Exception{
         goTo("/res/bookmarks.min.css");
         Object exp1 = res.getHeader("Expires");
         Thread.sleep(1000);
@@ -39,7 +33,7 @@ public class MinifierServletTest extends AbstractWebTest {
     }
     
     @Test
-    public void testJavascript() throws Exception{
+    public void Javascript() throws Exception{
         goTo("/res/test1.js");
         goTo("/res/test2.js");
     }

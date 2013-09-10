@@ -18,10 +18,8 @@ import com.thoughtworks.xstream.converters.Converter;
 /**
  * ConfigurationFactory is a Factory class for Configuration instances
  *
- * @author Timo Westkamper
- * @version $Id$
+ * @author tiwe
  */
-
 public class ConfigurationFactory {
     
     private final XStream xstream;

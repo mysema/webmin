@@ -19,7 +19,6 @@ import org.apache.commons.collections15.IteratorUtils;
  * MinifierRequestWrapper provides
  *
  * @author tiwe
- * @version $Id$
  */
 public class MinifierRequestWrapper extends HttpServletRequestWrapper{
 

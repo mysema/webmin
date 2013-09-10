@@ -29,8 +29,7 @@ import com.mysema.webmin.util.ResourceUtil;
 /**
  * MinifierServlet provides minification and gzip compression of JavaScript and CSS content
  * 
- * @author Timo Westkamper
- * @version $Id$
+ * @author tiwe
  */
 public class MinifierServlet extends HttpServlet {
 

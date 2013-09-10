@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletResponseWrapper;
  * HTMLMinifierFilter provides minification functionality as a Servlet filter 
  *
  * @author tiwe
- * @version $Id$
  */
 public class HTMLMinifierFilter implements Filter {
     

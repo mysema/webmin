@@ -7,12 +7,6 @@ import java.io.IOException;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-/**
- * MinifierResponseWrapperTest provides
- *
- * @author tiwe
- * @version $Id$
- */
 public class MinifierResponseWrapperTest {
 
     @Test

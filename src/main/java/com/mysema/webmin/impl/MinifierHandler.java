@@ -39,8 +39,7 @@ import com.mysema.webmin.util.ResourceUtil;
 /**
  * MinifierHandler provides CSS and JS minification services via the Handler interface 
  * 
- * @author Timo Westkamper
- * @version $Id$
+ * @author tiwe
  */
 public class MinifierHandler implements Handler {
 

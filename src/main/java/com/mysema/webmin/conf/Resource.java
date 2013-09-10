@@ -5,13 +5,8 @@
  */
 package com.mysema.webmin.conf;
 
-
-
 /**
- * Resource provides
- * 
  * @author tiwe
- * @version $Id$
  */
 public class Resource {
     

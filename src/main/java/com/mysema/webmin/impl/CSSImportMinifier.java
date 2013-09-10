@@ -22,7 +22,6 @@ import com.mysema.webmin.conf.Resource;
  * for inner CSS resources
  *
  * @author tiwe
- * @version $Id$
  */
 public class CSSImportMinifier implements Minifier {
     

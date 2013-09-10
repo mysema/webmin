@@ -6,10 +6,7 @@
 package com.mysema.webmin.conf;
 
 /**
- * MinifierException provides
- *
  * @author tiwe
- * @version $Id$
  */
 public class MinifierException extends RuntimeException {
 

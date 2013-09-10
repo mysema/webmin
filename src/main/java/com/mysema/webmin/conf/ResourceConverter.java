@@ -12,10 +12,7 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 /**
- * ResourceConverter provides
- *
  * @author tiwe
- * @version $Id$
  */
 public final class ResourceConverter implements Converter {
     

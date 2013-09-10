@@ -17,8 +17,7 @@ import com.mysema.webmin.conf.Configuration;
 /**
  * JsminJsMinifier provides JavaScript minification based on the JSMin library
  * 
- * @author Timo Westkamper
- * @version $Id$
+ * @author tiwe
  */
 public class JSMinMinifier implements Minifier {
     

@@ -19,16 +19,10 @@ import org.xml.sax.SAXException;
 import com.mysema.webmin.conf.Configuration;
 import com.mysema.webmin.conf.ConfigurationFactory;
 
-/**
- * EmptyConfigurationTest provides
- *
- * @author tiwe
- * @version $Id$
- */
 public class EmptyConfigurationTest {
     
     @Test
-    public void testEmpty() throws IOException, SAXException{
+    public void Empty() throws IOException, SAXException{
         ServletContext sc = new MockServletContext(new FileSystemResourceLoader());
         ConfigurationFactory confFactory = new ConfigurationFactory();
         Configuration conf = confFactory.create(sc, getClass().getResourceAsStream("/minifier2.xml"));

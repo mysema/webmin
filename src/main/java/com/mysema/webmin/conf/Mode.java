@@ -6,10 +6,7 @@
 package com.mysema.webmin.conf;
 
 /**
- * Mode provides
- *
  * @author tiwe
- * @version $Id$
  */
 public enum Mode {
     /**

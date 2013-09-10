@@ -28,13 +28,6 @@ import com.mysema.webmin.conf.Configuration;
 import com.mysema.webmin.conf.ConfigurationFactory;
 import com.mysema.webmin.conf.Resource;
 
-
-/**
- * ConfigurationTest provides
- * 
- * @author Timo Westkamper
- * @version $Id$
- */
 public class ConfigurationTest {
     
     private final ConfigurationFactory confFactory = new ConfigurationFactory();
@@ -49,7 +42,7 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void testLoad() throws IOException, SAXException {
+    public void Load() throws IOException, SAXException {
         assertEquals("javascript",c.getBundleByPath("/res/deletetag.min.js").getType());
         List<Resource> resources = c.getBundleByPath("/res/deletetag.min.js").getResources();
         
@@ -65,12 +58,12 @@ public class ConfigurationTest {
     }
     
     @Test
-    public void testEncoding(){
+    public void Encoding(){
         assertEquals("UTF-8", c.getTargetEncoding());
     }
     
     @Test
-    public void testForward(){
+    public void Forward(){
         Bundle bundle = c.getBundleByName("dwr");
         assertTrue(bundle.getResources().get(0).isForward());
         
@@ -79,19 +72,19 @@ public class ConfigurationTest {
     }
     
     @Test
-    public void testWilcard(){
+    public void Wilcard(){
         // scripts/*;
         assertEquals(7, c.getBundleByPath("/res/all-resources.js").getResources().size());        
     }
     
     @Test
-    public void testWilcard2(){
+    public void Wilcard2(){
         // scripts/*.js
         assertEquals(5, c.getBundleByPath("/res/all-scripts.js").getResources().size());
     }
     
     @Test
-    public void testPrint(){
+    public void Print(){
         for (Bundle bundle : c.getBundles()){
             if (bundle.getName() != null) System.out.println("bundle name : " + bundle.getName());
             if (bundle.getPath() != null) System.out.println("bundle path : " + bundle.getPath());

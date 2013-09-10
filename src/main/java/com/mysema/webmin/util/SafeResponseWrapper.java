@@ -14,8 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * SafeResponseWrapper provides
  * 
- * @author Timo Westkamper
- * @version $Id$
+ * @author tiwe
  */
 public abstract class SafeResponseWrapper implements HttpServletResponse {
 

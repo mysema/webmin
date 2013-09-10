@@ -17,8 +17,7 @@ import org.apache.commons.io.IOUtils;
 /**
  * CompositeInputStream bundles multiple InputStreams into one
  *
- * @author Timo Westkamper
- * @version $Id$
+ * @author tiwe
  */
 public class CompositeInputStream extends InputStream{
     

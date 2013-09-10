@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Handler is a minimal Servlet like interface for request handling
  *
- * @author Timo Westkamper
- * @version $Id$
- *
+ * @author tiwe
  */
 public interface Handler
 {

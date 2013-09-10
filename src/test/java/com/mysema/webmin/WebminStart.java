@@ -7,12 +7,6 @@ package com.mysema.webmin;
 
 import com.mysema.commons.jetty.JettyHelper;
 
-/**
- * WebminStart provides
- *
- * @author tiwe
- * @version $Id$
- */
 public class WebminStart {
     
     public static void main(String[] args) throws Exception{
